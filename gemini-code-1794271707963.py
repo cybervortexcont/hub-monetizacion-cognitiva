@@ -1,0 +1,905 @@
+import os
+
+html_content = """<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecosistema de Monetización Cognitiva & Hub Global</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            900: '#14532d',
+                        },
+                        darkbg: '#0a0d14',
+                        cardbg: '#111827',
+                        borderbg: '#1f2937'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0a0d14;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #374151;
+        }
+    </style>
+</head>
+<body class="bg-darkbg text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-black">
+
+    <!-- BARRA NAVEGACIÓN SUPERIOR -->
+    <header class="border-b border-borderbg bg-cardbg/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-brand-500/10 p-2 rounded-xl border border-brand-500/30 text-brand-500">
+                    <i data-lucide="cpu" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+                        Cognitive Monetization Suite
+                    </h1>
+                    <p class="text-xs text-slate-400 hidden sm:block">Hub Global de Monetización de Conocimiento & E-Commerce</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <!-- Selector Multilingüe -->
+                <div class="flex items-center bg-darkbg border border-borderbg rounded-lg p-1 text-xs">
+                    <button onclick="setLanguage('es')" id="lang-es" class="px-2 py-1 rounded bg-brand-600 text-white font-medium transition">ES</button>
+                    <button onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 rounded text-slate-400 hover:text-white transition">EN</button>
+                    <button onclick="setLanguage('pt')" id="lang-pt" class="px-2 py-1 rounded text-slate-400 hover:text-white transition">PT</button>
+                </div>
+
+                <a href="#sec-report" onclick="switchTab('report')" class="bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold px-3 py-2 rounded-lg transition flex items-center space-x-1 shadow-lg shadow-brand-600/20">
+                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                    <span id="btn-report-text">Informe Resolutivo</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVEGACIÓN SECUNDARIA / PESTAÑAS -->
+    <nav class="border-b border-borderbg bg-darkbg/50 sticky top-16 z-40 backdrop-blur-sm overflow-x-auto custom-scrollbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-2 py-2 text-xs font-medium whitespace-nowrap">
+            <button onclick="switchTab('workflow')" id="tab-workflow" class="tab-btn px-4 py-2 rounded-lg bg-cardbg border border-brand-500/40 text-brand-500 flex items-center space-x-2">
+                <i data-lucide="git-merge" class="w-4 h-4"></i>
+                <span data-i18n="nav_workflow">1. Flujo Cognitivo</span>
+            </button>
+            <button onclick="switchTab('calculator')" id="tab-calculator" class="tab-btn px-4 py-2 rounded-lg hover:bg-cardbg border border-transparent text-slate-400 hover:text-white flex items-center space-x-2">
+                <i data-lucide="calculator" class="w-4 h-4"></i>
+                <span data-i18n="nav_calculator">2. Calculadora USD/ARS</span>
+            </button>
+            <button onclick="switchTab('prospectus')" id="tab-prospectus" class="tab-btn px-4 py-2 rounded-lg hover:bg-cardbg border border-transparent text-slate-400 hover:text-white flex items-center space-x-2">
+                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                <span data-i18n="nav_prospectus">3. Prospecto E-Commerce</span>
+            </button>
+            <button onclick="switchTab('builder')" id="tab-builder" class="tab-btn px-4 py-2 rounded-lg hover:bg-cardbg border border-transparent text-slate-400 hover:text-white flex items-center space-x-2">
+                <i data-lucide="layers" class="w-4 h-4"></i>
+                <span data-i18n="nav_builder">4. Creador de Activos</span>
+            </button>
+            <button onclick="switchTab('snippets')" id="tab-snippets" class="tab-btn px-4 py-2 rounded-lg hover:bg-cardbg border border-transparent text-slate-400 hover:text-white flex items-center space-x-2">
+                <i data-lucide="code-2" class="w-4 h-4"></i>
+                <span data-i18n="nav_snippets">5. Snippets Universal</span>
+            </button>
+            <button onclick="switchTab('report')" id="tab-report" class="tab-btn px-4 py-2 rounded-lg hover:bg-cardbg border border-transparent text-slate-400 hover:text-white flex items-center space-x-2">
+                <i data-lucide="file-check-2" class="w-4 h-4"></i>
+                <span data-i18n="nav_report">6. Informe Hipertextual</span>
+            </button>
+            <button onclick="switchTab('primitive')" id="tab-primitive" class="tab-btn px-4 py-2 rounded-lg hover:bg-cardbg border border-transparent text-slate-400 hover:text-white flex items-center space-x-2">
+                <i data-lucide="terminal" class="w-4 h-4"></i>
+                <span data-i18n="nav_primitive">7. Raíz Protocolo HTTP</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- PESTAÑA 1: FLUJO COGNITIVO -->
+        <section id="sec-workflow" class="tab-content space-y-6">
+            <div class="bg-cardbg border border-borderbg rounded-2xl p-6 sm:p-8">
+                <h2 class="text-xl font-bold text-white mb-2 flex items-center space-x-2">
+                    <i data-lucide="workflow" class="w-5 h-5 text-brand-500"></i>
+                    <span data-i18n="workflow_title">Arquitectura de Procesamiento Cognitivo</span>
+                </h2>
+                <p class="text-slate-400 text-sm mb-6" data-i18n="workflow_desc">
+                    Flujo end-to-end desde la ingesta de conocimiento hasta la liquidación en moneda local (ARS) pasando por pasarelas internacionales.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-darkbg p-5 rounded-xl border border-borderbg hover:border-brand-500/50 transition">
+                        <div class="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 text-blue-400 flex items-center justify-center text-xs font-bold mb-3">01</div>
+                        <h3 class="font-semibold text-white text-sm mb-1" data-i18n="wf_step1_title">Ingesta y Estructuración</h3>
+                        <p class="text-xs text-slate-400" data-i18n="wf_step1_desc">Captura de conocimiento raw, prompts, resúmenes analíticos e información de valor confidencial.</p>
+                    </div>
+
+                    <div class="bg-darkbg p-5 rounded-xl border border-borderbg hover:border-brand-500/50 transition">
+                        <div class="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-400 flex items-center justify-center text-xs font-bold mb-3">02</div>
+                        <h3 class="font-semibold text-white text-sm mb-1" data-i18n="wf_step2_title">Empaquetado Digital</h3>
+                        <p class="text-xs text-slate-400" data-i18n="wf_step2_desc">Conversión a bienes informacionales (BI1, BI2, BI3), infoproductos o herramientas Micro-SaaS.</p>
+                    </div>
+
+                    <div class="bg-darkbg p-5 rounded-xl border border-borderbg hover:border-brand-500/50 transition">
+                        <div class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center text-xs font-bold mb-3">03</div>
+                        <h3 class="font-semibold text-white text-sm mb-1" data-i18n="wf_step3_title">Cobro MoR Global</h3>
+                        <p class="text-xs text-slate-400" data-i18n="wf_step3_desc">Venta en USD/EUR vía Merchant of Record (Lemon Squeezy/Gumroad) gestionando impuestos automáticamente.</p>
+                    </div>
+
+                    <div class="bg-darkbg p-5 rounded-xl border border-borderbg hover:border-brand-500/50 transition">
+                        <div class="w-8 h-8 rounded-lg bg-brand-500/10 border border-brand-500/30 text-brand-500 flex items-center justify-center text-xs font-bold mb-3">04</div>
+                        <h3 class="font-semibold text-white text-sm mb-1" data-i18n="wf_step4_title">Ruteo e Ingreso a ARS</h3>
+                        <p class="text-xs text-slate-400" data-i18n="wf_step4_desc">Transferencia a Wise/Airtm/Belo y liquidación a Mercado Pago o cuenta bancaria local en Argentina.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 2: CALCULADORA FINANCIERA USD/ARS -->
+        <section id="sec-calculator" class="tab-content hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-1 bg-cardbg border border-borderbg rounded-2xl p-6">
+                    <h2 class="text-lg font-bold text-white mb-4 flex items-center space-x-2">
+                        <i data-lucide="sliders" class="w-5 h-5 text-brand-500"></i>
+                        <span data-i18n="calc_params_title">Parámetros de Simulación</span>
+                    </h2>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1" data-i18n="calc_lbl_price">Precio de Venta Unitario (USD)</label>
+                            <input type="number" id="calc-price" value="29" class="w-full bg-darkbg border border-borderbg rounded-lg px-3 py-2 text-white text-sm focus:border-brand-500 focus:outline-none" oninput="runCalculations()">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1" data-i18n="calc_lbl_sales">Ventas Estimadas al Mes</label>
+                            <input type="number" id="calc-sales" value="50" class="w-full bg-darkbg border border-borderbg rounded-lg px-3 py-2 text-white text-sm focus:border-brand-500 focus:outline-none" oninput="runCalculations()">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1" data-i18n="calc_lbl_mor">Pasarela / Merchant of Record</label>
+                            <select id="calc-mor" class="w-full bg-darkbg border border-borderbg rounded-lg px-3 py-2 text-white text-sm focus:border-brand-500 focus:outline-none" onchange="runCalculations()">
+                                <option value="lemon">Lemon Squeezy (5% + $0.50)</option>
+                                <option value="gumroad">Gumroad (10% + $0.30)</option>
+                                <option value="payhip">Payhip (5% + Paypal/Stripe)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1" data-i18n="calc_lbl_route">Ruta de Liquidación a Argentina</label>
+                            <select id="calc-route" class="w-full bg-darkbg border border-borderbg rounded-lg px-3 py-2 text-white text-sm focus:border-brand-500 focus:outline-none" onchange="runCalculations()">
+                                <option value="airtm">Airtm (Directo a Mercado Pago)</option>
+                                <option value="wise_belo">Wise ➔ Belo (Crypto P2P USDT)</option>
+                                <option value="crypto_direct">Crypto Directo (Lemon Cash)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1" data-i18n="calc_lbl_rate">Tipo de Cambio Estimado (ARS por USD)</label>
+                            <input type="number" id="calc-rate" value="1250" class="w-full bg-darkbg border border-borderbg rounded-lg px-3 py-2 text-white text-sm focus:border-brand-500 focus:outline-none" oninput="runCalculations()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 bg-cardbg border border-borderbg rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <h2 class="text-lg font-bold text-white mb-4 flex items-center space-x-2">
+                            <i data-lucide="pie-chart" class="w-5 h-5 text-brand-500"></i>
+                            <span data-i18n="calc_results_title">Resultados de Ingreso Neto</span>
+                        </h2>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                            <div class="bg-darkbg p-4 rounded-xl border border-borderbg">
+                                <span class="text-xs text-slate-400 block" data-i18n="res_gross">Ingreso Bruto Mensual</span>
+                                <span id="res-gross-usd" class="text-xl font-bold text-white">$1,450.00 USD</span>
+                            </div>
+                            <div class="bg-darkbg p-4 rounded-xl border border-borderbg">
+                                <span class="text-xs text-slate-400 block" data-i18n="res_fees">Comisiones Totales</span>
+                                <span id="res-fees-usd" class="text-xl font-bold text-rose-400">$97.50 USD</span>
+                            </div>
+                            <div class="bg-darkbg p-4 rounded-xl border border-brand-500/30">
+                                <span class="text-xs text-brand-400 block font-medium" data-i18n="res_net_ars">Neto en Argentina (ARS)</span>
+                                <span id="res-net-ars" class="text-xl font-bold text-brand-500">$1,690,625 ARS</span>
+                            </div>
+                        </div>
+
+                        <div class="h-48 w-full">
+                            <canvas id="financeChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-borderbg flex justify-between items-center text-xs text-slate-400">
+                        <span data-i18n="calc_note">*Valores de cotización y comisiones calculados dinámicamente.</span>
+                        <button onclick="exportSimulation()" class="text-brand-400 hover:text-brand-300 font-semibold flex items-center space-x-1">
+                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                            <span data-i18n="btn_export_sim">Exportar Simulación</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 3: PROSPECTO COMERCIAL E-COMMERCE -->
+        <section id="sec-prospectus" class="tab-content hidden space-y-6">
+            <div class="bg-cardbg border border-borderbg rounded-2xl p-6 sm:p-8">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-white flex items-center space-x-2">
+                            <i data-lucide="store" class="w-6 h-6 text-brand-500"></i>
+                            <span data-i18n="prospectus_title">Prospecto Comercial: Iniciación E-Commerce Cognitivo</span>
+                        </h2>
+                        <p class="text-slate-400 text-sm mt-1" data-i18n="prospectus_subtitle">
+                            Front-End Offer lista para monetizar ($9 - $19 USD) posicionando metodologías de entrada al comercio digital sin inventario físico.
+                        </p>
+                    </div>
+
+                    <button onclick="downloadProspectusFile()" class="bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center space-x-2 shadow-lg shadow-brand-600/20">
+                        <i data-lucide="file-text" class="w-4 h-4"></i>
+                        <span data-i18n="btn_download_prospectus">Descargar Prospecto (.md)</span>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-darkbg p-5 rounded-xl border border-borderbg">
+                        <div class="flex items-center space-x-3 text-brand-500 mb-2">
+                            <i data-lucide="box" class="w-5 h-5"></i>
+                            <h3 class="font-bold text-white text-sm" data-i18n="pros_p1_title">1. Modelo Zero-Inventory</h3>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed" data-i18n="pros_p1_desc">
+                            Venta de activos informacionales puramente digitales ($BI_1$) eliminando almacenamiento, logística y aranceles aduaneros.
+                        </p>
+                    </div>
+
+                    <div class="bg-darkbg p-5 rounded-xl border border-borderbg">
+                        <div class="flex items-center space-x-3 text-blue-400 mb-2">
+                            <i data-lucide="shield-check" class="w-5 h-5"></i>
+                            <h3 class="font-bold text-white text-sm" data-i18n="pros_p2_title">2. Cumplimiento MoR / TRIPS</h3>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed" data-i18n="pros_p2_desc">
+                            Operativa protegida mediante plataformas Merchant of Record que absorben la responsabilidad fiscal internacional.
+                        </p>
+                    </div>
+
+                    <div class="bg-darkbg p-5 rounded-xl border border-borderbg">
+                        <div class="flex items-center space-x-3 text-purple-400 mb-2">
+                            <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+                            <h3 class="font-bold text-white text-sm" data-i18n="pros_p3_title">3. Ruteo Eficiente de Divisas</h3>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed" data-i18n="pros_p3_desc">
+                            Conversión automática de cobros en USD/Crypto a moneda local con las tasas más competitivas del mercado argentino.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- VISTA PREVIA DEL DOCUMENTO -->
+                <div class="bg-darkbg p-6 rounded-xl border border-borderbg font-mono text-xs text-slate-300 leading-relaxed overflow-x-auto custom-scrollbar">
+                    <div class="text-slate-500 border-b border-borderbg pb-2 mb-4 flex justify-between items-center">
+                        <span>PROSPECTO_COMERCIAL_ECOMMERCE_COGNITIVO.MD</span>
+                        <span>CONFIDENCIAL / EXPORTABLE</span>
+                    </div>
+                    <pre id="prospectus-preview-text">
+# PROSPECTO COMERCIAL DE INICIACIÓN AL COMERCIO ELECTRÓNICO COGNITIVO
+**Origen:** Argentina ➔ **Alcance:** Mercado Global (EE.UU., Europa, LATAM)
+
+## 1. RESUMEN EJECUTIVO
+Este prospecto detalla el marco operativo para convertir el conocimiento técnico y procedimental en productos digitales monetizables de baja fricción ($BI_1$).
+
+## 2. ESTRUCTURA DE VALOR Y PRECIOS
+- **Front-End (Hook):** Prospecto & Guía de Iniciación ($9.00 USD)
+- **Core Product:** Bundle de Prompts & Automatizaciones ($29.00 USD)
+- **High-Ticket:** Consultoría y Configuración de Ecosistemas ($149.00 USD)
+
+## 3. CANALES DE COBRO Y RETIRO A ARGENTINA
+1. Cobro al cliente vía Lemon Squeezy / Payhip (Tarjetas Globales).
+2. Transferencia automática a cuenta bancaria US / Wise / Airtm.
+3. Conversión final a ARS mediante liquidación crypto P2P o transferencia bancaria local.
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 4: CREADOR DE ACTIVOS DIGITALES -->
+        <section id="sec-builder" class="tab-content hidden space-y-6">
+            <div class="bg-cardbg border border-borderbg rounded-2xl p-6 sm:p-8">
+                <h2 class="text-xl font-bold text-white mb-2 flex items-center space-x-2">
+                    <i data-lucide="package-plus" class="w-5 h-5 text-brand-500"></i>
+                    <span data-i18n="builder_title">Creador de Paquetes y Productos Informacionales</span>
+                </h2>
+                <p class="text-slate-400 text-sm mb-6" data-i18n="builder_subtitle">Diseña la ficha de venta para tus activos de conocimiento listo para conectar con tu pasarela de cobro.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1" data-i18n="bld_name">Nombre del Producto / Pack</label>
+                            <input type="text" id="bld-title" value="Pack de Prompts & Automatizaciones E-Commerce" class="w-full bg-darkbg border border-borderbg rounded-lg px-3 py-2 text-white text-sm focus:border-brand-500 focus:outline-none" oninput="updateProductCard()">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1" data-i18n="bld_desc">Descripción Corta</label>
+                            <textarea id="bld-desc" rows="3" class="w-full bg-darkbg border border-borderbg rounded-lg px-3 py-2 text-white text-sm focus:border-brand-500 focus:outline-none" oninput="updateProductCard()">Guía ejecutiva y plantillas listas para implementar automatizaciones de ventas en comercio electrónico desde Argentina al mercado global.</textarea>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-300 mb-1" data-i18n="bld_price">Precio (USD)</label>
+                                <input type="number" id="bld-price" value="19" class="w-full bg-darkbg border border-borderbg rounded-lg px-3 py-2 text-white text-sm focus:border-brand-500 focus:outline-none" oninput="updateProductCard()">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-300 mb-1" data-i18n="bld_type">Tipo de Bien Informacional</label>
+                                <select id="bld-type" class="w-full bg-darkbg border border-borderbg rounded-lg px-3 py-2 text-white text-sm focus:border-brand-500 focus:outline-none" onchange="updateProductCard()">
+                                    <option value="BI1">BI1 - Contenido / Texto / Prompts</option>
+                                    <option value="BI2">BI2 - Script / App / Widget</option>
+                                    <option value="BI3">BI3 - Sistema / Framework Completo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1" data-i18n="bld_link">URL de Cobro (Lemon Squeezy / Payhip / Gumroad)</label>
+                            <input type="text" id="bld-link" value="https://payhip.com/b/tu-producto" class="w-full bg-darkbg border border-borderbg rounded-lg px-3 py-2 text-white text-sm focus:border-brand-500 focus:outline-none" oninput="updateProductCard()">
+                        </div>
+                    </div>
+
+                    <!-- VISTA PREVIA DE TARJETA PRODUCTO -->
+                    <div class="bg-darkbg p-6 rounded-xl border border-borderbg flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <span id="card-badge" class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30">BI1 INFORMACIONAL</span>
+                                <span id="card-price" class="text-2xl font-bold text-white">$19 USD</span>
+                            </div>
+
+                            <h3 id="card-title" class="text-lg font-bold text-white mb-2">Pack de Prompts & Automatizaciones E-Commerce</h3>
+                            <p id="card-desc" class="text-xs text-slate-400 leading-relaxed mb-6">Guía ejecutiva y plantillas listas para implementar automatizaciones de ventas en comercio electrónico desde Argentina al mercado global.</p>
+                        </div>
+
+                        <a id="card-btn" href="https://payhip.com/b/tu-producto" target="_blank" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-2.5 rounded-xl text-xs text-center transition shadow-lg shadow-brand-600/20 flex items-center justify-center space-x-2">
+                            <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                            <span data-i18n="btn_buy_now">Obtener Acceso Instantáneo</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 5: SNIPPETS DE INTEGRACIÓN UNIVERSAL -->
+        <section id="sec-snippets" class="tab-content hidden space-y-6">
+            <div class="bg-cardbg border border-borderbg rounded-2xl p-6 sm:p-8">
+                <h2 class="text-xl font-bold text-white mb-2 flex items-center space-x-2">
+                    <i data-lucide="code" class="w-5 h-5 text-brand-500"></i>
+                    <span data-i18n="snippets_title">Snippets e Integración Omnicanal</span>
+                </h2>
+                <p class="text-slate-400 text-sm mb-6" data-i18n="snippets_subtitle">Copia y pega estos bloques de código para embeber tus botones de cobro en blogs (Blogger/WordPress) o cualquier sitio web HTML.</p>
+
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-xs font-semibold text-slate-300" data-i18n="snip_btn_label">1. Botón de Compra Directo (HTML/JS)</label>
+                            <button onclick="copySnippet('snip-code-btn')" class="text-xs text-brand-400 hover:text-brand-300 font-medium flex items-center space-x-1">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span data-i18n="btn_copy">Copiar Snippet</span>
+                            </button>
+                        </div>
+                        <pre class="bg-darkbg p-4 rounded-xl border border-borderbg font-mono text-xs text-slate-300 overflow-x-auto"><code id="snip-code-btn">&lt;!-- Botón Universal de Cobro Cognitivo --&gt;
+&lt;a href="HTTPS_TU_LINK_DE_PAGO" target="_blank" style="background-color: #16a34a; color: #ffffff; padding: 12px 24px; border-radius: 8px; font-weight: bold; text-decoration: none; display: inline-block; font-family: sans-serif;"&gt;
+   Adquirir Activo Digital (USD) ➔
+&lt;/a&gt;</code></pre>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-xs font-semibold text-slate-300" data-i18n="snip_card_label">2. Tarjeta Embebible con Iframe o Modulo JS</label>
+                            <button onclick="copySnippet('snip-code-card')" class="text-xs text-brand-400 hover:text-brand-300 font-medium flex items-center space-x-1">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span data-i18n="btn_copy">Copiar Snippet</span>
+                            </button>
+                        </div>
+                        <pre class="bg-darkbg p-4 rounded-xl border border-borderbg font-mono text-xs text-slate-300 overflow-x-auto"><code id="snip-code-card">&lt;div style="background: #111827; border: 1px solid #1f2937; padding: 20px; border-radius: 12px; color: #fff; max-width: 350px;"&gt;
+  &lt;h4 style="margin: 0 0 8px 0; font-size: 16px;"&gt;Pack Cognitivo E-Commerce&lt;/h4&gt;
+  &lt;p style="color: #9ca3af; font-size: 12px; margin-mb: 16px;"&gt;Metodología completa de exportación de servicios y productos digitales.&lt;/p&gt;
+  &lt;a href="HTTPS_TU_LINK_DE_PAGO" style="background: #16a34a; color: #fff; text-align: center; display: block; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 12px;"&gt;Comprar Ahora $19 USD&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 6: INFORME HIPERTEXTUAL RESOLUTIVO -->
+        <section id="sec-report" class="tab-content hidden space-y-6">
+            <div class="bg-cardbg border border-borderbg rounded-2xl p-6 sm:p-8">
+                <h2 class="text-xl font-bold text-white mb-2 flex items-center space-x-2">
+                    <i data-lucide="file-text" class="w-5 h-5 text-brand-500"></i>
+                    <span data-i18n="report_title">Informe Hipertextual Resolutivo para App</span>
+                </h2>
+                <p class="text-slate-400 text-sm mb-6" data-i18n="report_subtitle">Haz clic en cualquier hipertexto técnico para desplegar la resolución estratégica y vincularla con su herramienta ejecutiva.</p>
+
+                <!-- TEXTO HIPERTEXTUAL -->
+                <div class="bg-darkbg p-6 rounded-xl border border-borderbg space-y-4 text-sm text-slate-300 leading-relaxed">
+                    <p>
+                        En la transición hacia el <span class="ht-link cursor-pointer text-brand-400 font-semibold underline decoration-brand-500/40 hover:decoration-brand-500" onclick="inspectConcept('cap_cognitivo')">Capitalismo Cognitivo</span>, el principal insumo productivo pasa a ser la <span class="ht-link cursor-pointer text-brand-400 font-semibold underline decoration-brand-500/40 hover:decoration-brand-500" onclick="inspectConcept('info_digital')">Información Digital</span>. Este cambio altera de manera sustancial la realización de valor en los <span class="ht-link cursor-pointer text-brand-400 font-semibold underline decoration-brand-500/40 hover:decoration-brand-500" onclick="inspectConcept('bienes_informacionales')">Bienes Informacionales ($BI_1, BI_2, BI_3$)</span>.
+                    </p>
+                    <p>
+                        Para resolver la monetización desde economías emergentes como Argentina hacia mercados globales, la infraestructura requiere el uso de pasarelas con figura de <span class="ht-link cursor-pointer text-brand-400 font-semibold underline decoration-brand-500/40 hover:decoration-brand-500" onclick="inspectConcept('mor_tax')">Merchant of Record (MoR)</span> y mecanismos eficientes de <span class="ht-link cursor-pointer text-brand-400 font-semibold underline decoration-brand-500/40 hover:decoration-brand-500" onclick="inspectConcept('liquid_ars')">Liquidación a ARS</span> sin pérdida cambiaria.
+                    </p>
+                </div>
+
+                <!-- INSPECTOR DINÁMICO DE CONCEPTO -->
+                <div id="concept-inspector" class="bg-darkbg/80 border border-brand-500/30 p-6 rounded-xl mt-6 hidden">
+                    <div class="flex justify-between items-start mb-3">
+                        <span id="c-badge" class="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-500/20 text-brand-400">CONCEPTO SELECCIONADO</span>
+                        <button onclick="closeInspector()" class="text-slate-500 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+                    </div>
+                    <h3 id="c-title" class="text-lg font-bold text-white mb-2">Nombre del Concepto</h3>
+                    <p id="c-desc" class="text-xs text-slate-300 leading-relaxed mb-4">Descripción resolutiva del concepto.</p>
+                    <button id="c-btn" class="bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold px-4 py-2 rounded-lg transition flex items-center space-x-2">
+                        <span>Ir a la Herramienta Relacionada</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 7: RAÍZ PROTOCOLO HTTP -->
+        <section id="sec-primitive" class="tab-content hidden space-y-6">
+            <div class="bg-cardbg border border-borderbg rounded-2xl p-6 sm:p-8">
+                <h2 class="text-xl font-bold text-white mb-2 flex items-center space-x-2">
+                    <i data-lucide="terminal" class="w-5 h-5 text-brand-500"></i>
+                    <span data-i18n="primitive_title">Conexión a la Fuente Primitiva (HTTP / Standard Web)</span>
+                </h2>
+                <p class="text-slate-400 text-sm mb-6" data-i18n="primitive_subtitle">
+                    Infraestructura basada en estándares web limpios (Single File HTML5/JS/CSS), sin dependencias pesadas ni servidores complejos. Operativa instantánea desde Vercel o Cloudflare.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-darkbg p-5 rounded-xl border border-borderbg">
+                        <h3 class="font-bold text-white text-sm mb-2 flex items-center space-x-2">
+                            <i data-lucide="server" class="w-4 h-4 text-brand-500"></i>
+                            <span data-i18n="prim_host_title">1. Despliegue en 1-Clic</span>
+                        </h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4" data-i18n="prim_host_desc">
+                            Arrastra este archivo index.html directamente a Vercel, Netlify o Cloudflare Pages. Tu Hub estará en línea globalmente en menos de 30 segundos con certificado SSL gratuito.
+                        </p>
+                    </div>
+
+                    <div class="bg-darkbg p-5 rounded-xl border border-borderbg">
+                        <h3 class="font-bold text-white text-sm mb-2 flex items-center space-x-2">
+                            <i data-lucide="zap" class="w-4 h-4 text-brand-500"></i>
+                            <span data-i18n="prim_perf_title">2. Rendimiento Magnético</span>
+                        </h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4" data-i18n="prim_perf_desc">
+                            Carga ultrarrápida optimizada para conexiones móviles 3G/4G/5G, garantizando la máxima tasa de conversión para compras impulsivas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="border-t border-borderbg bg-cardbg py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
+            <p data-i18n="footer_text">© Ecosistema de Monetización Cognitiva & Comercio Digital Universal. Diseñado para operar desde Argentina hacia el mundo.</p>
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT -->
+    <script>
+        // TRADUCCIONES MULTILINGÜES (ES, EN, PT)
+        const i18n = {
+            es: {
+                nav_workflow: "1. Flujo Cognitivo",
+                nav_calculator: "2. Calculadora USD/ARS",
+                nav_prospectus: "3. Prospecto E-Commerce",
+                nav_builder: "4. Creador de Activos",
+                nav_snippets: "5. Snippets Universal",
+                nav_report: "6. Informe Hipertextual",
+                nav_primitive: "7. Raíz Protocolo HTTP",
+                workflow_title: "Arquitectura de Procesamiento Cognitivo",
+                workflow_desc: "Flujo end-to-end desde la ingesta de conocimiento hasta la liquidación en moneda local (ARS) pasando por pasarelas internacionales.",
+                wf_step1_title: "Ingesta y Estructuración",
+                wf_step1_desc: "Captura de conocimiento raw, prompts, resúmenes analíticos e información de valor confidencial.",
+                wf_step2_title: "Empaquetado Digital",
+                wf_step2_desc: "Conversión a bienes informacionales (BI1, BI2, BI3), infoproductos o herramientas Micro-SaaS.",
+                wf_step3_title: "Cobro MoR Global",
+                wf_step3_desc: "Venta en USD/EUR vía Merchant of Record (Lemon Squeezy/Gumroad) gestionando impuestos automáticamente.",
+                wf_step4_title: "Ruteo e Ingreso a ARS",
+                wf_step4_desc: "Transferencia a Wise/Airtm/Belo y liquidación a Mercado Pago o cuenta bancaria local en Argentina.",
+                calc_params_title: "Parámetros de Simulación",
+                calc_lbl_price: "Precio de Venta Unitario (USD)",
+                calc_lbl_sales: "Ventas Estimadas al Mes",
+                calc_lbl_mor: "Pasarela / Merchant of Record",
+                calc_lbl_route: "Ruta de Liquidación a Argentina",
+                calc_lbl_rate: "Tipo de Cambio Estimado (ARS por USD)",
+                calc_results_title: "Resultados de Ingreso Neto",
+                res_gross: "Ingreso Bruto Mensual",
+                res_fees: "Comisiones Totales",
+                res_net_ars: "Neto en Argentina (ARS)",
+                calc_note: "*Valores de cotización y comisiones calculados dinámicamente.",
+                btn_export_sim: "Exportar Simulación",
+                prospectus_title: "Prospecto Comercial: Iniciación E-Commerce Cognitivo",
+                prospectus_subtitle: "Front-End Offer lista para monetizar ($9 - $19 USD) posicionando metodologías de entrada al comercio digital sin inventario físico.",
+                btn_download_prospectus: "Descargar Prospecto (.md)",
+                pros_p1_title: "1. Modelo Zero-Inventory",
+                pros_p1_desc: "Venta de activos informacionales puramente digitales (BI1) eliminando almacenamiento, logística y aranceles aduaneros.",
+                pros_p2_title: "2. Cumplimiento MoR / TRIPS",
+                pros_p2_desc: "Operativa protegida mediante plataformas Merchant of Record que absorben la responsabilidad fiscal internacional.",
+                pros_p3_title: "3. Ruteo Eficiente de Divisas",
+                pros_p3_desc: "Conversión automática de cobros en USD/Crypto a moneda local con las tasas más competitivas del mercado argentino.",
+                builder_title: "Creador de Paquetes y Productos Informacionales",
+                builder_subtitle: "Diseña la ficha de venta para tus activos de conocimiento listo para conectar con tu pasarela de cobro.",
+                bld_name: "Nombre del Producto / Pack",
+                bld_desc: "Descripción Corta",
+                bld_price: "Precio (USD)",
+                bld_type: "Tipo de Bien Informacional",
+                bld_link: "URL de Cobro (Lemon Squeezy / Payhip / Gumroad)",
+                btn_buy_now: "Obtener Acceso Instantáneo",
+                snippets_title: "Snippets e Integración Omnicanal",
+                snippets_subtitle: "Copia y pega estos bloques de código para embeber tus botones de cobro en blogs (Blogger/WordPress) o cualquier sitio web HTML.",
+                snip_btn_label: "1. Botón de Compra Directo (HTML/JS)",
+                snip_card_label: "2. Tarjeta Embebible con Iframe o Modulo JS",
+                btn_copy: "Copiar Snippet",
+                report_title: "Informe Hipertextual Resolutivo para App",
+                report_subtitle: "Haz clic en cualquier hipertexto técnico para desplegar la resolución estratégica y vincularla con su herramienta ejecutiva.",
+                primitive_title: "Conexión a la Fuente Primitiva (HTTP / Standard Web)",
+                primitive_subtitle: "Infraestructura basada en estándares web limpios (Single File HTML5/JS/CSS), sin dependencias pesadas ni servidores complejos. Operativa instantánea desde Vercel o Cloudflare.",
+                prim_host_title: "1. Despliegue en 1-Clic",
+                prim_host_desc: "Arrastra este archivo index.html directamente a Vercel, Netlify o Cloudflare Pages. Tu Hub estará en línea globalmente en menos de 30 segundos con certificado SSL gratuito.",
+                prim_perf_title: "2. Rendimiento Magnético",
+                prim_perf_desc: "Carga ultrarrápida optimizada para conexiones móviles 3G/4G/5G, garantizando la máxima tasa de conversión para compras impulsivas.",
+                footer_text: "© Ecosistema de Monetización Cognitiva & Comercio Digital Universal. Diseñado para operar desde Argentina hacia el mundo."
+            },
+            en: {
+                nav_workflow: "1. Cognitive Workflow",
+                nav_calculator: "2. USD/ARS Calculator",
+                nav_prospectus: "3. E-Commerce Prospectus",
+                nav_builder: "4. Asset Builder",
+                nav_snippets: "5. Universal Snippets",
+                nav_report: "6. Hypertext Report",
+                nav_primitive: "7. HTTP Protocol Root",
+                workflow_title: "Cognitive Processing Architecture",
+                workflow_desc: "End-to-end workflow from knowledge ingestion to local currency settlement (ARS) via international payment gateways.",
+                wf_step1_title: "Ingestion & Structuring",
+                wf_step1_desc: "Capture of raw knowledge, prompts, analytical summaries, and confidential high-value information.",
+                wf_step2_title: "Digital Packaging",
+                wf_step2_desc: "Conversion to informational goods (BI1, BI2, BI3), info-products, or Micro-SaaS tools.",
+                wf_step3_title: "Global MoR Checkout",
+                wf_step3_desc: "Sales in USD/EUR via Merchant of Record (Lemon Squeezy/Gumroad) handling taxes automatically.",
+                wf_step4_title: "ARS Settlement Routing",
+                wf_step4_desc: "Transfer to Wise/Airtm/Belo and settlement to Mercado Pago or local bank accounts in Argentina.",
+                calc_params_title: "Simulation Parameters",
+                calc_lbl_price: "Unit Selling Price (USD)",
+                calc_lbl_sales: "Estimated Monthly Sales",
+                calc_lbl_mor: "Payment Gateway / Merchant of Record",
+                calc_lbl_route: "Settlement Route to Argentina",
+                calc_lbl_rate: "Estimated Exchange Rate (ARS per USD)",
+                calc_results_title: "Net Income Results",
+                res_gross: "Monthly Gross Revenue",
+                res_fees: "Total Processing Fees",
+                res_net_ars: "Net Income in Argentina (ARS)",
+                calc_note: "*Exchange rates and fees are calculated dynamically.",
+                btn_export_sim: "Export Simulation",
+                prospectus_title: "Commercial Prospectus: Cognitive E-Commerce Entry",
+                prospectus_subtitle: "Monetizable Front-End Offer ($9 - $19 USD) positioning zero-inventory digital commerce frameworks.",
+                btn_download_prospectus: "Download Prospectus (.md)",
+                pros_p1_title: "1. Zero-Inventory Model",
+                pros_p1_desc: "Selling pure digital informational goods (BI1), eliminating physical storage, shipping, and customs tariffs.",
+                pros_p2_title: "2. MoR / TRIPS Compliance",
+                pros_p2_desc: "Operations protected via Merchant of Record platforms absorbing international tax responsibilities.",
+                pros_p3_title: "3. Efficient Currency Routing",
+                pros_p3_desc: "Automatic conversion of USD/Crypto payouts to local ARS at competitive market exchange rates.",
+                builder_title: "Informational Goods Pack Builder",
+                builder_subtitle: "Design checkout product cards ready to connect with your global payment gateway.",
+                bld_name: "Product / Pack Title",
+                bld_desc: "Short Description",
+                bld_price: "Price (USD)",
+                bld_type: "Informational Good Type",
+                bld_link: "Checkout URL (Lemon Squeezy / Payhip / Gumroad)",
+                btn_buy_now: "Get Instant Access",
+                snippets_title: "Omnichannel Snippets & Integration",
+                snippets_subtitle: "Copy and paste these code blocks to embed buy buttons into blogs (Blogger/WordPress) or any HTML website.",
+                snip_btn_label: "1. Direct Buy Button (HTML/JS)",
+                snip_card_label: "2. Embeddable Product Card",
+                btn_copy: "Copy Snippet",
+                report_title: "Hypertext Resolutive Report for App",
+                report_subtitle: "Click on any technical term to display strategic resolutions and navigate to its tool.",
+                primitive_title: "Primitive Web Source Connection (HTTP / Standard Web)",
+                primitive_subtitle: "Clean web standard architecture (Single File HTML5/JS/CSS) without heavy servers or complex dependencies. Instant deployment via Vercel or Cloudflare.",
+                prim_host_title: "1. 1-Click Deployment",
+                prim_host_desc: "Drag and drop this index.html file to Vercel or Cloudflare Pages. Live globally in under 30 seconds with free SSL.",
+                prim_perf_title: "2. High Performance",
+                prim_perf_desc: "Ultra-fast load time optimized for mobile 3G/4G/5G networks, maximizing conversion rates.",
+                footer_text: "© Cognitive Monetization Suite & Universal Digital Commerce. Engineered for global deployment from Argentina."
+            },
+            pt: {
+                nav_workflow: "1. Fluxo Cognitivo",
+                nav_calculator: "2. Calculadora USD/ARS",
+                nav_prospectus: "3. Prospecto E-Commerce",
+                nav_builder: "4. Criador de Ativos",
+                nav_snippets: "5. Snippets Universais",
+                nav_report: "6. Relatório Hipertextual",
+                nav_primitive: "7. Raiz Protocolo HTTP",
+                workflow_title: "Arquitetura de Processamento Cognitivo",
+                workflow_desc: "Fluxo completo desde a captura de conhecimento até a liquidação em moeda local (ARS) por meio de gateways internacionais.",
+                wf_step1_title: "Ingestão e Estruturação",
+                wf_step1_desc: "Captura de conhecimento bruto, prompts, resumos analíticos e informações confidenciais de alto valor.",
+                wf_step2_title: "Empacotamento Digital",
+                wf_step2_desc: "Conversão em bens informacionais (BI1, BI2, BI3), infoprodutos ou ferramentas Micro-SaaS.",
+                wf_step3_title: "Pagamento MoR Global",
+                wf_step3_desc: "Vendas em USD/EUR via Merchant of Record (Lemon Squeezy/Gumroad) com gestão automática de impostos.",
+                wf_step4_title: "Liquidação em ARS",
+                wf_step4_desc: "Transferência para Wise/Airtm/Belo e envio para Mercado Pago ou conta bancária na Argentina.",
+                calc_params_title: "Parâmetros de Simulação",
+                calc_lbl_price: "Preço Unitário (USD)",
+                calc_lbl_sales: "Vendas Mensais Estimadas",
+                calc_lbl_mor: "Gateway / Merchant of Record",
+                calc_lbl_route: "Rota de Liquidação na Argentina",
+                calc_lbl_rate: "Taxa de Câmbio Estimada (ARS por USD)",
+                calc_results_title: "Resultados de Lucro Líquido",
+                res_gross: "Receita Bruta Mensal",
+                res_fees: "Taxas Totais de Processamento",
+                res_net_ars: "Líquido na Argentina (ARS)",
+                calc_note: "*Taxas de câmbio e comissões calculadas dinamicamente.",
+                btn_export_sim: "Exportar Simulação",
+                prospectus_title: "Prospecto Comercial: Entrada no E-Commerce Cognitivo",
+                prospectus_subtitle: "Oferta Front-End monetizável ($9 - $19 USD) posicionando modelos de comércio digital sem estoque físico.",
+                btn_download_prospectus: "Baixar Prospecto (.md)",
+                pros_p1_title: "1. Modelo Zero-Estoque",
+                pros_p1_desc: "Venda de bens informacionais puramente digitais (BI1), eliminando estoque, frete e tarifas alfandegárias.",
+                pros_p2_title: "2. Conformidade MoR / TRIPS",
+                pros_p2_desc: "Operações protegidas por plataformas Merchant of Record que absorvem a responsabilidade fiscal internacional.",
+                pros_p3_title: "3. Conversão Eficiente de Moedas",
+                pros_p3_desc: "Conversão automática de saques em USD/Crypto para ARS com as taxas mais competitivas do mercado.",
+                builder_title: "Criador de Pacotes de Bens Informacionais",
+                builder_subtitle: "Crie cartões de checkout prontos para conectar ao seu gateway de pagamento global.",
+                bld_name: "Título do Produto / Pacote",
+                bld_desc: "Descrição Curta",
+                bld_price: "Preço (USD)",
+                bld_type: "Tipo de Bem Informacional",
+                bld_link: "URL de Checkout (Lemon Squeezy / Payhip / Gumroad)",
+                btn_buy_now: "Obter Acesso Imediato",
+                snippets_title: "Snippets e Integração Omnicanal",
+                snippets_subtitle: "Copie e cole estes códigos para inserir botões de compra em blogs (Blogger/WordPress) ou qualquer site HTML.",
+                snip_btn_label: "1. Botão de Compra Direto (HTML/JS)",
+                snip_card_label: "2. Cartão de Produto Embutido",
+                btn_copy: "Copiar Snippet",
+                report_title: "Relatório Hipertextual Resolutivo para App",
+                report_subtitle: "Clique em qualquer termo técnico para ver resoluções estratégicas e navegar para sua ferramenta.",
+                primitive_title: "Conexão com a Fonte Primitiva (HTTP / Standard Web)",
+                primitive_subtitle: "Arquitetura baseada em padrões web limpos (Single File HTML5/JS/CSS) sem servidores pesados. Implantação instantânea via Vercel ou Cloudflare.",
+                prim_host_title: "1. Implantação em 1 Clique",
+                prim_host_desc: "Arraste este arquivo index.html para Vercel ou Cloudflare Pages. Online globalmente em menos de 30 segundos com SSL grátis.",
+                prim_perf_title: "2. Alto Desempenho",
+                prim_perf_desc: "Carregamento ultra-rápido otimizado para redes móveis 3G/4G/5G, maximizando a conversão de vendas.",
+                footer_text: "© Cognitive Monetization Suite & Comércio Digital Universal. Projetado para operação global a partir da Argentina."
+            }
+        };
+
+        let currentLang = 'es';
+        let chartInstance = null;
+
+        // CAMBIO DE IDIOMA
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[id^="lang-"]').forEach(btn => {
+                btn.className = "px-2 py-1 rounded text-slate-400 hover:text-white transition";
+            });
+            document.getElementById(`lang-${lang}`).className = "px-2 py-1 rounded bg-brand-600 text-white font-medium transition";
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.innerText = i18n[lang][key];
+                }
+            });
+
+            runCalculations();
+        }
+
+        // CONTROL DE PESTAÑAS
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn px-4 py-2 rounded-lg hover:bg-cardbg border border-transparent text-slate-400 hover:text-white flex items-center space-x-2";
+            });
+
+            document.getElementById(`sec-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            if (activeBtn) {
+                activeBtn.className = "tab-btn px-4 py-2 rounded-lg bg-cardbg border border-brand-500/40 text-brand-500 flex items-center space-x-2 font-semibold";
+            }
+        }
+
+        // CÁLCULOS FINANCIEROS Y GRÁFICO
+        function runCalculations() {
+            const price = parseFloat(document.getElementById('calc-price').value) || 0;
+            const sales = parseFloat(document.getElementById('calc-sales').value) || 0;
+            const rate = parseFloat(document.getElementById('calc-rate').value) || 1;
+            const mor = document.getElementById('calc-mor').value;
+
+            const grossUSD = price * sales;
+            let feePercent = 0.05;
+            let feeFixedUSD = 0.50;
+
+            if (mor === 'gumroad') {
+                feePercent = 0.10;
+                feeFixedUSD = 0.30;
+            } else if (mor === 'payhip') {
+                feePercent = 0.05;
+                feeFixedUSD = 0.40;
+            }
+
+            const totalFeesUSD = (grossUSD * feePercent) + (sales * feeFixedUSD);
+            const netUSD = grossUSD - totalFeesUSD;
+            const netARS = netUSD * rate;
+
+            document.getElementById('res-gross-usd').innerText = `$${grossUSD.toLocaleString('en-US', {minimumFractionDigits: 2})} USD`;
+            document.getElementById('res-fees-usd').innerText = `$${totalFeesUSD.toLocaleString('en-US', {minimumFractionDigits: 2})} USD`;
+            document.getElementById('res-net-ars').innerText = `$${Math.round(netARS).toLocaleString('es-AR')} ARS`;
+
+            updateChart(grossUSD, totalFeesUSD, netUSD);
+        }
+
+        function updateChart(gross, fees, net) {
+            const ctx = document.getElementById('financeChart').getContext('2d');
+            if (chartInstance) chartInstance.destroy();
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Bruto (USD)', 'Comisiones (USD)', 'Neto (USD)'],
+                    datasets: [{
+                        data: [gross, fees, net],
+                        backgroundColor: ['#3b82f6', '#f43f5e', '#22c55e'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { ticks: { color: '#9ca3af' }, grid: { color: '#1f2937' } },
+                        x: { ticks: { color: '#9ca3af' }, grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        // ACTUALIZACIÓN FICHA PRODUCTO
+        function updateProductCard() {
+            const title = document.getElementById('bld-title').value;
+            const desc = document.getElementById('bld-desc').value;
+            const price = document.getElementById('bld-price').value;
+            const type = document.getElementById('bld-type').value;
+            const link = document.getElementById('bld-link').value;
+
+            document.getElementById('card-title').innerText = title || "Nombre del Producto";
+            document.getElementById('card-desc').innerText = desc || "Descripción del producto";
+            document.getElementById('card-price').innerText = `$${price || 0} USD`;
+            document.getElementById('card-badge').innerText = `${type} INFORMACIONAL`;
+            document.getElementById('card-btn').href = link || "#";
+        }
+
+        // COPIAR SNIPPETS
+        function copySnippet(elementId) {
+            const codeText = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(codeText).then(() => {
+                alert("Snippet copiado al portapapeles. Listo para pegar en tu HTML/Blog.");
+            });
+        }
+
+        // INSPECTOR DE CONCEPTOS HIPERTEXTUALES
+        const concepts = {
+            cap_cognitivo: {
+                title: "Capitalismo Cognitivo",
+                desc: "Etapa del modo de producción capitalista donde el conocimiento y la información digital sustituyen al trabajo físico y la energía como principal vector de generación de valor.",
+                badge: "CONCEPTO DE TEORÍA ECONÓMICA",
+                tab: "workflow"
+            },
+            info_digital: {
+                title: "Información Digital & Replicabilidad",
+                desc: "Información codificada en bits susceptible de ser duplicada a costos marginales cercanos a cero (Costo Marginal ≈ 0). Requiere instituciones de propiedad intelectual para ser realizada como mercancía.",
+                badge: "CARACTERÍSTICA ONTOLÓGICA",
+                tab: "prospectus"
+            },
+            bienes_informacionales: {
+                title: "Bienes Informacionales (BI1, BI2, BI3)",
+                desc: "Clasificación de bienes: BI1 (Pura información: software, textos, prompts), BI2 (Procesadores y hardware: chips), BI3 (Materia viva/genética).",
+                badge: "CLASIFICACIÓN DE ACTIVOS",
+                tab: "builder"
+            },
+            mor_tax: {
+                title: "Merchant of Record (MoR)",
+                desc: "Entidad legal (como Lemon Squeezy o Gumroad) que actúa como revendedor de tus activos digitales, cobrando al cliente final y absorbiendo la responsabilidad impositiva global (IVA/Sales Tax).",
+                badge: "ARQUITECTURA DE PAGOS",
+                tab: "calculator"
+            },
+            liquid_ars: {
+                title: "Liquidación a Moneda Local (ARS)",
+                desc: "Estrategia de transferencia de divisas desde plataformas globales hacia billeteras en Argentina (Mercado Pago / Bancos) utilizando vías como Airtm, Wise o P2P Crypto con cotización transparente.",
+                badge: "FINANZAS LOCALES",
+                tab: "calculator"
+            }
+        };
+
+        function inspectConcept(key) {
+            const item = concepts[key];
+            if (!item) return;
+
+            document.getElementById('c-badge').innerText = item.badge;
+            document.getElementById('c-title').innerText = item.title;
+            document.getElementById('c-desc').innerText = item.desc;
+            document.getElementById('c-btn').onclick = () => switchTab(item.tab);
+
+            document.getElementById('concept-inspector').classList.remove('hidden');
+            document.getElementById('concept-inspector').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeInspector() {
+            document.getElementById('concept-inspector').classList.add('hidden');
+        }
+
+        // EXPORTAR SIMULACIÓN
+        function exportSimulation() {
+            const text = `SIMULACIÓN DE MONETIZACIÓN COGNITIVA
+----------------------------------
+Bruto USD: ${document.getElementById('res-gross-usd').innerText}
+Comisiones USD: ${document.getElementById('res-fees-usd').innerText}
+Neto ARS: ${document.getElementById('res-net-ars').innerText}
+Fecha: ${new Date().toLocaleDateString()}`;
+
+            const blob = new Blob([text], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'simulacion_finanzas_cognitivas.txt';
+            a.click();
+        }
+
+        // DESCARGAR PROSPECTO (.MD)
+        function downloadProspectusFile() {
+            const content = document.getElementById('prospectus-preview-text').innerText;
+            const blob = new Blob([content], { type: 'text/markdown' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'PROSPECTO_COMERCIAL_ECOMMERCE_COGNITIVO.md';
+            a.click();
+        }
+
+        // INICIALIZACIÓN
+        window.onload = function() {
+            lucide.createIcons();
+            runCalculations();
+        };
+    </script>
+</body>
+</html>
+"""
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print("El archivo index.html ha sido generado y actualizado correctamente.")
