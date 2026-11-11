@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hub Global de Monetización Cognitiva & E-Commerce UNPAZ</title>
+    <title>Hub Global de Monetización Cognitiva & Marketplace UNPAZ</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -30,31 +30,30 @@
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col">
 
-    <!-- Header / Navbar -->
+    <!-- Header / Navbar estilo Hotmart/Amazon Marketplace -->
     <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
             <div class="flex items-center space-x-3">
                 <div class="p-2 bg-emerald-500/10 rounded-lg border border-emerald-500/30 text-emerald-400">
-                    <i data-lucide="cpu" class="w-6 h-6"></i>
+                    <i data-lucide="store" class="w-6 h-6"></i>
                 </div>
                 <div>
-                    <span class="font-bold text-lg text-white tracking-wide block leading-tight">Hub Cognitivo UNPAZ</span>
-                    <span class="text-xs text-slate-400">Monetización $BI$ & Marketplace Digital</span>
+                    <span class="font-bold text-lg text-white tracking-wide block leading-tight">Hub Marketplace UNPAZ</span>
+                    <span class="text-xs text-slate-400">Ecosistema de Infoproductos & Comisiones</span>
                 </div>
             </div>
             
             <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
-                <a href="#flujo" class="hover:text-emerald-400 transition">Flujo Cognitivo</a>
-                <a href="#calculadora" class="hover:text-emerald-400 transition">Calculadora USD/ARS</a>
-                <a href="#marketplace" class="hover:text-emerald-400 transition">Marketplace UNPAZ</a>
-                <a href="#postulantes" class="hover:text-emerald-400 transition">Publicar Activo</a>
-                <a href="#snippets" class="hover:text-emerald-400 transition">Snippets Omnicanal</a>
+                <a href="#catalogo" class="hover:text-emerald-400 transition">Explorar Catálogo</a>
+                <a href="#vender" class="hover:text-emerald-400 transition text-emerald-400 font-semibold">Vende Gratis (Comisión)</a>
+                <a href="#calculadora" class="hover:text-emerald-400 transition">Calculadora de Ganancias</a>
+                <a href="#pagos-datos" class="hover:text-emerald-400 transition">Datos de Pago</a>
             </nav>
 
             <div class="flex items-center space-x-3">
-                <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block mr-1 animate-pulse"></span> Vercel Live
-                </span>
+                <a href="#vender" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition shadow-lg shadow-emerald-500/20">
+                    Publicar Infoproducto
+                </a>
             </div>
         </div>
     </header>
@@ -62,87 +61,218 @@
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
 
         <!-- Hero Section -->
-        <section class="text-center py-12 relative overflow-hidden bg-slate-900/40 rounded-3xl border border-slate-800 p-8">
+        <section class="text-center py-12 relative overflow-hidden bg-gradient-to-b from-slate-900 to-slate-950 rounded-3xl border border-slate-800 p-8">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs text-emerald-400 mb-6">
                 <i data-lucide="zap" class="w-3.5 h-3.5"></i>
-                <span>Capitalismo Cognitivo & Bienes Informacionales ($BI_1, BI_2, BI_3$)</span>
+                <span>Plataforma de Afiliación & Bienes Informacionales ($BI_1, BI_2, BI_3$)</span>
             </div>
             <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight max-w-4xl mx-auto leading-tight">
-                Transforma tu Conocimiento Universitario en un <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200">Ecosistema Global Monetizable</span>
+                El <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200">Amazon & Hotmart</span> de los Infoproductos Universitarios
             </h1>
             <p class="mt-6 text-lg text-slate-400 max-w-2xl mx-auto">
-                Infraestructura automatizada de costo marginal cero para empaquetar, publicar y comercializar activos digitales desde Argentina hacia el mundo con ruteo optimizado en USD/ARS.
+                Publica tu conocimiento aplicado gratis. Gestionamos cobros locales vía Mercado Pago en ARS y pasarelas globales en USD.
             </p>
             <div class="mt-8 flex flex-wrap justify-center gap-4">
-                <a href="#marketplace" class="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl transition shadow-lg shadow-emerald-500/20 flex items-center gap-2">
-                    <i data-lucide="shopping-bag" class="w-5 h-5"></i> Explorar Marketplace
+                <a href="#catalogo" class="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl transition shadow-lg shadow-emerald-500/20 flex items-center gap-2">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i> Ver Infoproductos
                 </a>
-                <a href="#postulantes" class="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl border border-slate-700 transition flex items-center gap-2">
-                    <i data-lucide="upload-cloud" class="w-5 h-5"></i> Postular Producto Digital
+                <a href="#vender" class="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl border border-slate-700 transition flex items-center gap-2">
+                    <i data-lucide="plus-circle" class="w-5 h-5"></i> Publicar Mi Infoproducto Gratis
                 </a>
             </div>
         </section>
 
-        <!-- 1. Flujo Procesamiento Cognitivo (4 Etapas) -->
-        <section id="flujo" class="space-y-6">
-            <div class="border-b border-slate-800 pb-4">
-                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                    <i data-lucide="workflow" class="text-emerald-400"></i>
-                    1. Arquitectura de Procesamiento Cognitivo
-                </h2>
-                <p class="text-slate-400 text-sm">Flujo end-to-end desde la ingesta de conocimiento hasta la liquidación local en ARS.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <!-- Etapa 1 -->
-                <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/50 transition">
-                    <span class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 font-bold flex items-center justify-center text-sm mb-4">01</span>
-                    <h3 class="font-bold text-white text-lg">Ingesta y Estructuración</h3>
-                    <p class="text-slate-400 text-xs mt-2 leading-relaxed">Captura de conocimiento crudo (prompts, análisis, investigaciones de e-commerce) a información de valor confidencial.</p>
-                </div>
-                <!-- Etapa 2 -->
-                <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/50 transition">
-                    <span class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 font-bold flex items-center justify-center text-sm mb-4">02</span>
-                    <h3 class="font-bold text-white text-lg">Empaquetado Digital</h3>
-                    <p class="text-slate-400 text-xs mt-2 leading-relaxed">Conversión a Bienes Informacionales ($BI_1, BI_2, BI_3$): infoproductos, e-books o herramientas micro-SaaS.</p>
-                </div>
-                <!-- Etapa 3 -->
-                <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/50 transition">
-                    <span class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 font-bold flex items-center justify-center text-sm mb-4">03</span>
-                    <h3 class="font-bold text-white text-lg">Cobro MoR Global</h3>
-                    <p class="text-slate-400 text-xs mt-2 leading-relaxed">Venta en USD/EUR vía Merchant of Record (Lemon Squeezy/Gumroad) gestionando impuestos automáticamente.</p>
-                </div>
-                <!-- Etapa 4 -->
-                <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/50 transition">
-                    <span class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 font-bold flex items-center justify-center text-sm mb-4">04</span>
-                    <h3 class="font-bold text-white text-lg">Ruteo e Ingreso a ARS</h3>
-                    <p class="text-slate-400 text-xs mt-2 leading-relaxed">Transferencia a Wise/Airtm/Belo y liquidación a Mercado Pago o cuenta bancaria local en Argentina.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. Calculadora USD/ARS -->
-        <section id="calculadora" class="bg-slate-900/80 p-8 rounded-3xl border border-slate-800 space-y-6">
-            <div class="border-b border-slate-800 pb-4 flex justify-between items-center">
+        <!-- 1. Catálogo / Marketplace de Infoproductos -->
+        <section id="catalogo" class="space-y-6">
+            <div class="border-b border-slate-800 pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                        <i data-lucide="calculator" class="text-emerald-400"></i>
-                        2. Calculadora de Monetización & Revenue Share
+                        <i data-lucide="store" class="text-emerald-400"></i>
+                        Catálogo Destacado de Infoproductos
                     </h2>
-                    <p class="text-slate-400 text-sm">Simula tus ganancias netas por venta internacional y split de comisiones.</p>
+                    <p class="text-slate-400 text-sm">Adquiere herramientas prácticas desarrolladas por especialistas en comercio electrónico.</p>
                 </div>
+            </div>
+
+            <!-- Grid de Productos -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Producto 1 -->
+                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between hover:border-emerald-500/40 transition shadow-lg">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold rounded-md">$BI_1 / Automatización</span>
+                            <span class="text-xs text-slate-400 font-mono">UNPAZ-01</span>
+                        </div>
+                        <h3 class="font-bold text-white text-lg">Pack de Integración Tiendanube & API Stock</h3>
+                        <p class="text-slate-400 text-xs mt-2 leading-relaxed">Scripts en Python + Webhook para sincronizar inventario de proveedores en Flores con tiendas locales en tiempo real.</p>
+                        <p class="text-xs text-emerald-400/80 mt-3 font-medium">Creador: Camila Dianela Acevedo</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
+                        <div>
+                            <span class="text-2xl font-bold text-white">$35 USD</span>
+                            <span class="block text-[10px] text-slate-400">Pago Local o Mercado Pago</span>
+                        </div>
+                        <a href="#pagos-datos" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
+                            <i data-lucide="credit-card" class="w-4 h-4"></i> Comprar / Pagar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Producto 2 -->
+                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between hover:border-emerald-500/40 transition shadow-lg">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="px-2.5 py-1 bg-teal-500/10 text-teal-400 border border-teal-500/20 text-xs font-semibold rounded-md">$BI_2 / Prospecto</span>
+                            <span class="text-xs text-slate-400 font-mono">UNPAZ-02</span>
+                        </div>
+                        <h3 class="font-bold text-white text-lg">Guía de Escalabilidad y Pauta Meta Ads en ARS</h3>
+                        <p class="text-slate-400 text-xs mt-2 leading-relaxed">Estrategias probadas de optimización de ROAS para ferias locales y ventas directas por WhatsApp con retargeting.</p>
+                        <p class="text-xs text-emerald-400/80 mt-3 font-medium">Creador: Natasha Guerrero</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
+                        <div>
+                            <span class="text-2xl font-bold text-white">$20 USD</span>
+                            <span class="block text-[10px] text-slate-400">Pago Local o Mercado Pago</span>
+                        </div>
+                        <a href="#pagos-datos" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
+                            <i data-lucide="credit-card" class="w-4 h-4"></i> Comprar / Pagar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Producto 3 -->
+                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between hover:border-emerald-500/40 transition shadow-lg">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="px-2.5 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-semibold rounded-md">$BI_3 / Ecosistema</span>
+                            <span class="text-xs text-slate-400 font-mono">UNPAZ-03</span>
+                        </div>
+                        <h3 class="font-bold text-white text-lg">Template Single-File PWA Monetizable</h3>
+                        <p class="text-slate-400 text-xs mt-2 leading-relaxed">Código fuente base index.html optimizado para Vercel, Lemon Squeezy, Mercado Pago Split y soporte multilenguaje.</p>
+                        <p class="text-xs text-emerald-400/80 mt-3 font-medium">Creador: Mr. Signe / Hub Admin</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
+                        <div>
+                            <span class="text-2xl font-bold text-white">$45 USD</span>
+                            <span class="block text-[10px] text-slate-400">Pago Local o Mercado Pago</span>
+                        </div>
+                        <a href="#pagos-datos" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
+                            <i data-lucide="credit-card" class="w-4 h-4"></i> Comprar / Pagar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Datos Oficiales de Cobro y Mercado Pago -->
+        <section id="pagos-datos" class="bg-slate-900/90 p-8 rounded-3xl border border-emerald-500/30 space-y-6">
+            <div class="border-b border-slate-800 pb-4 flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <i data-lucide="wallet" class="text-emerald-400"></i>
+                        Pasarela Local & Datos de Pago (Mercado Pago ARS)
+                    </h2>
+                    <p class="text-slate-400 text-sm">Realiza transferencias directas o pagos de comisiones del Hub a las credenciales oficiales.</p>
+                </div>
+                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold rounded-lg">
+                    Verificado Mercado Pago
+                </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Tarjeta Alias -->
+                <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 relative overflow-hidden">
+                    <span class="text-xs text-slate-400 block mb-1">Alias Oficial Mercado Pago:</span>
+                    <span class="text-2xl font-mono font-bold text-emerald-400 block tracking-wider">luisantoniodiaz</span>
+                    <button onclick="navigator.clipboard.writeText('luisantoniodiaz')" class="mt-3 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Alias
+                    </button>
+                </div>
+
+                <!-- Tarjeta CVU -->
+                <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 relative overflow-hidden">
+                    <span class="text-xs text-slate-400 block mb-1">CVU Oficial (Mercado Pago):</span>
+                    <span class="text-xl font-mono font-bold text-white block tracking-wider select-all">0000003100075708519499</span>
+                    <button onclick="navigator.clipboard.writeText('0000003100075708519499')" class="mt-3 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar CVU
+                    </button>
+                </div>
+            </div>
+
+            <p class="text-xs text-slate-400 text-center pt-2">
+                Titular: <strong>Luis Antonio Díaz</strong> — Al realizar la transferencia de compra, envía el comprobante vía el formulario de postulación/contacto para la liberación inmediata del activo digital.
+            </p>
+        </section>
+
+        <!-- 3. Formulario para Vender Gratis -->
+        <section id="vender" class="bg-gradient-to-br from-slate-900 to-slate-950 p-8 rounded-3xl border border-slate-800 space-y-6">
+            <div class="max-w-3xl mx-auto text-center space-y-3">
+                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold rounded-full inline-block">Programa de Creadores & Afiliados</span>
+                <h2 class="text-3xl font-extrabold text-white">Vende tus infoproductos aquí 100% Gratis</h2>
+                <p class="text-slate-400 text-sm">Publicar tu conocimiento no tiene costo. Retenemos un porcentaje de comisión automatizado sobre cada venta efectuada.</p>
+            </div>
+
+            <form action="https://formspree.io/f/diazluishy@gmail.com" method="POST" class="max-w-2xl mx-auto space-y-4 pt-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-slate-300 font-medium mb-1">Nombre Completo</label>
+                        <input type="text" name="nombre" required placeholder="Ej. Luis Díaz" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-300 font-medium mb-1">WhatsApp / Contacto</label>
+                        <input type="text" name="contacto" required placeholder="+54 9 2304..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-slate-300 font-medium mb-1">Categoría del Infoproducto</label>
+                        <select name="tipo_bi" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                            <option value="BI1">$BI_1 - Script / Software / Automatización</option>
+                            <option value="BI2">$BI_2 - E-book / Guía / Reporte Analítico</option>
+                            <option value="BI3">$BI_3 - Pack / Consultoría / Servicio</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-300 font-medium mb-1">Precio de Venta Sugerido (USD / ARS)</label>
+                        <input type="number" name="precio" placeholder="Ej. 30" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs text-slate-300 font-medium mb-1">Enlace de tu Producto o Material</label>
+                    <input type="url" name="enlace_producto" required placeholder="https://drive.google.com/... o tu link" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div class="text-center pt-2">
+                    <button type="submit" class="w-full sm:w-auto px-8 py-3 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl transition shadow-lg shadow-emerald-500/20">
+                        Publicar Infoproducto Gratis en el Hub
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- 4. Calculadora de Comisiones (Revenue Share) -->
+        <section id="calculadora" class="bg-slate-900/80 p-8 rounded-3xl border border-slate-800 space-y-6">
+            <div class="border-b border-slate-800 pb-4">
+                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                    <i data-lucide="calculator" class="text-emerald-400"></i>
+                    Calculadora de Ingresos y Comisión por Venta
+                </h2>
+                <p class="text-slate-400 text-sm">Simulación de ganancias del administrador y liquidación neta al creador.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
                     <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Precio del Activo (USD)</label>
-                    <input type="number" id="inputPrice" value="50" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500">
+                    <input type="number" id="inputPrice" value="40" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Ventas Estimadas / Mes</label>
-                    <input type="number" id="inputSales" value="20" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500">
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Ventas Mensuales Estimadas</label>
+                    <input type="number" id="inputSales" value="25" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Comisión Hub (% Afiliación)</label>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Comisión Plataforma (%)</label>
                     <input type="number" id="inputFee" value="20" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500">
                 </div>
             </div>
@@ -150,170 +280,17 @@
             <!-- Dashboard de Resultados -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-800 text-center">
                 <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <span class="text-xs text-slate-400 block">Facturación Bruta (USD)</span>
+                    <span class="text-xs text-slate-400 block">Facturación Total Bruta</span>
                     <span id="resGross" class="text-2xl font-bold text-white">$1,000 USD</span>
                 </div>
                 <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <span class="text-xs text-slate-400 block">Comisión Plataforma Hub (USD)</span>
+                    <span class="text-xs text-slate-400 block">Comisión Hub Admin</span>
                     <span id="resFee" class="text-2xl font-bold text-emerald-400">$200 USD</span>
                 </div>
                 <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <span class="text-xs text-slate-400 block">Ganancia Neta Creador (USD)</span>
+                    <span class="text-xs text-slate-400 block">Ganancia Neta Creador</span>
                     <span id="resNet" class="text-2xl font-bold text-teal-300">$800 USD</span>
                 </div>
-            </div>
-        </section>
-
-        <!-- 3. Marketplace de Activos Cognitivos UNPAZ -->
-        <section id="marketplace" class="space-y-6">
-            <div class="border-b border-slate-800 pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                        <i data-lucide="store" class="text-emerald-400"></i>
-                        3. Marketplace de Comercio Digital & Activos Cognitivos
-                    </h2>
-                    <p class="text-slate-400 text-sm">Catálogo de productos desarrollados por estudiantes y graduados de Comercio Electrónico UNPAZ.</p>
-                </div>
-                <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded-lg text-xs text-slate-300">
-                    Sistema de Split Revenue Integrado
-                </span>
-            </div>
-
-            <!-- Grid del Marketplace -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Item 1 -->
-                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between hover:border-emerald-500/40 transition">
-                    <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold rounded-md">$BI_1 / Automatización</span>
-                            <span class="text-xs text-slate-400 font-mono">ID: UNPAZ-01</span>
-                        </div>
-                        <h3 class="font-bold text-white text-lg">Pack de Integración Tiendanube & API Stock</h3>
-                        <p class="text-slate-400 text-xs mt-2 leading-relaxed">Scripts en Python + Webhook para sincronizar inventario de proveedores en Flores con tiendas locales en tiempo real.</p>
-                        <p class="text-xs text-emerald-400/80 mt-3 font-medium">Autor: Camila Dianela Acevedo</p>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
-                        <div>
-                            <span class="text-2xl font-bold text-white">$35 USD</span>
-                            <span class="block text-[10px] text-slate-400">o equiv. en ARS</span>
-                        </div>
-                        <a href="https://lemon-squeezy.com" target="_blank" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition">Comprar Activo</a>
-                    </div>
-                </div>
-
-                <!-- Item 2 -->
-                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between hover:border-emerald-500/40 transition">
-                    <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="px-2.5 py-1 bg-teal-500/10 text-teal-400 border border-teal-500/20 text-xs font-semibold rounded-md">$BI_2 / Prospecto</span>
-                            <span class="text-xs text-slate-400 font-mono">ID: UNPAZ-02</span>
-                        </div>
-                        <h3 class="font-bold text-white text-lg">Guía de Escalabilidad y Pauta Meta Ads en ARS</h3>
-                        <p class="text-slate-400 text-xs mt-2 leading-relaxed">Estrategias probadas de optimización de ROAS para ferias locales y ventas directas por WhatsApp con retargeting.</p>
-                        <p class="text-xs text-emerald-400/80 mt-3 font-medium">Autor: Natasha Guerrero</p>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
-                        <div>
-                            <span class="text-2xl font-bold text-white">$20 USD</span>
-                            <span class="block text-[10px] text-slate-400">o equiv. en ARS</span>
-                        </div>
-                        <a href="https://lemon-squeezy.com" target="_blank" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition">Comprar Activo</a>
-                    </div>
-                </div>
-
-                <!-- Item 3 -->
-                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between hover:border-emerald-500/40 transition">
-                    <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="px-2.5 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-semibold rounded-md">$BI_3 / Ecosistema</span>
-                            <span class="text-xs text-slate-400 font-mono">ID: UNPAZ-03</span>
-                        </div>
-                        <h3 class="font-bold text-white text-lg">Template Single-File PWA Monetizable</h3>
-                        <p class="text-slate-400 text-xs mt-2 leading-relaxed">Código fuente base index.html optimizado para Vercel, Lemon Squeezy, Mercado Pago Split y soporte multilenguaje.</p>
-                        <p class="text-xs text-emerald-400/80 mt-3 font-medium">Autor: Mr. Signe / Hub Admin</p>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
-                        <div>
-                            <span class="text-2xl font-bold text-white">$45 USD</span>
-                            <span class="block text-[10px] text-slate-400">o equiv. en ARS</span>
-                        </div>
-                        <a href="https://lemon-squeezy.com" target="_blank" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition">Comprar Activo</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. Formulario de Postulación de Activos -->
-        <section id="postulantes" class="bg-gradient-to-br from-slate-900 to-slate-950 p-8 rounded-3xl border border-slate-800 space-y-6">
-            <div class="max-w-3xl mx-auto text-center space-y-3">
-                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold rounded-full inline-block">Programa de Creadores & Afiliados</span>
-                <h2 class="text-3xl font-extrabold text-white">¿Tienes un activo digital o informe especializado?</h2>
-                <p class="text-slate-400 text-sm">Suma tu producto informacional al Hub. Nosotros proveemos la infraestructura global de cobro en USD, hospedaje en Vercel y ruteo a ARS a cambio de un porcentaje de afiliación.</p>
-            </div>
-
-            <form action="https://formspree.io/f/diazluishy@gmail.com" method="POST" class="max-w-2xl mx-auto space-y-4 pt-4">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs text-slate-300 font-medium mb-1">Nombre Completo</label>
-                        <input type="text" name="nombre" required placeholder="Ej. Camila Acevedo" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-300 font-medium mb-1">Correo Electrónico / WhatsApp</label>
-                        <input type="text" name="contacto" required placeholder="diazluishy@gmail.com / +54..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs text-slate-300 font-medium mb-1">Tipo de Bien Informacional</label>
-                        <select name="tipo_bi" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                            <option value="BI1">$BI_1 - Script / Software / Código</option>
-                            <option value="BI2">$BI_2 - E-book / Reporte / Guía</option>
-                            <option value="BI3">$BI_3 - Servicio / Consultoría / Pack</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-300 font-medium mb-1">Precio Sugerido (USD)</label>
-                        <input type="number" name="precio" placeholder="Ej. 25" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs text-slate-300 font-medium mb-1">Descripción del Activo Cognitivo</label>
-                    <textarea name="descripcion" rows="3" required placeholder="Explica brevemente de qué trata tu conocimiento aplicado y qué problema resuelve..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500"></textarea>
-                </div>
-
-                <div class="text-center pt-2">
-                    <button type="submit" class="w-full sm:w-auto px-8 py-3 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl transition shadow-lg shadow-emerald-500/20">
-                        Enviar Postulación al Marketplace
-                    </button>
-                </div>
-            </form>
-        </section>
-
-        <!-- 5. Snippets Omnicanal & Grounding HTTP -->
-        <section id="snippets" class="space-y-6">
-            <div class="border-b border-slate-800 pb-4">
-                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                    <i data-lucide="code" class="text-emerald-400"></i>
-                    5. Integración Universal de Checkout (Snippets)
-                </h2>
-                <p class="text-slate-400 text-sm">Código directo listo para pegar en cualquier landing page o botón de venta.</p>
-            </div>
-
-            <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 font-mono text-xs text-slate-300 overflow-x-auto">
-                <div class="flex justify-between items-center text-slate-500 border-b border-slate-800 pb-2 mb-4">
-                    <span>Lemon Squeezy Overlay Checkout Snippet</span>
-                    <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)" class="hover:text-emerald-400">Copiar</button>
-                </div>
-                <pre><code>&lt;!-- Script Oficial Lemon Squeezy --&gt;
-&lt;script src="https://assets.lemonsqueezy.com/lemon.js" defer&gt;&lt;/script&gt;
-
-&lt;!-- Botón con Split de Afiliación Directo --&gt;
-&lt;a href="https://tu-tienda.lemonsqueezy.com/buy/PRODUCT_ID?aff=TU_ID_AFILIADO" 
-   class="lemonsqueezy-button bg-emerald-500 text-slate-950 font-bold px-6 py-3 rounded-xl"&gt;
-   Comprar Activo Digital ($USD)
-&lt;/a&gt;</code></pre>
             </div>
         </section>
 
@@ -323,8 +300,8 @@
     <footer class="bg-slate-900 border-t border-slate-800 py-8 text-center text-slate-500 text-xs">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div>
-                <p>© 2026 Hub Global de Monetización Cognitiva. Desarrollado en Argentina.</p>
-                <p class="text-[10px] text-slate-600 mt-1">Basado en el marco teórico de Mariano Zukerfeld & Economía de los Bienes Informacionales.</p>
+                <p>© 2026 Hub Global de Monetización Cognitiva & E-Commerce UNPAZ. Desarrollado en Argentina.</p>
+                <p class="text-[10px] text-slate-600 mt-1">Infraestructura basada en Economía de los Bienes Informacionales & Capitalismo Cognitivo.</p>
             </div>
             <div class="flex space-x-4">
                 <a href="https://github.com/cybervortexcont/hub-monetizacion-cognitiva" target="_blank" class="hover:text-emerald-400 transition">GitHub Repo</a>
@@ -333,11 +310,10 @@
         </div>
     </footer>
 
-    <!-- Lucide Init Script & Logic -->
+    <!-- Scripts: Init Lucide & Calculadora -->
     <script>
         lucide.createIcons();
 
-        // Lógica de Calculadora de Revenue Share
         const priceInput = document.getElementById('inputPrice');
         const salesInput = document.getElementById('inputSales');
         const feeInput = document.getElementById('inputFee');
