@@ -24,9 +24,9 @@
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col">
 
-    <!-- Banner Dinámico de Afiliado (Se activa si entran con ?ref=usuario) -->
+    <!-- Banner Dinámico de Afiliado -->
     <div id="affiliateBanner" class="hidden bg-emerald-600 text-slate-950 text-xs font-bold py-2 px-4 text-center">
-        Estás navegando mediante el enlace oficial de socio afiliado: <span id="refNameDisplay" class="underline uppercase"></span>
+        Estás navegando mediante el enlace oficial de socio afiliado: <span id="refNameDisplay" class="underline uppercase"></span> (Comisión del 35% aplicada al socio)
     </div>
 
     <!-- Header / Navbar -->
@@ -44,13 +44,18 @@
             
             <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
                 <a href="#catalogo" class="hover:text-emerald-400 transition">Catálogo</a>
-                <a href="#afiliados" class="hover:text-emerald-400 transition text-emerald-400 font-semibold">Generar Link Afiliado</a>
-                <a href="#calculadora" class="hover:text-emerald-400 transition">Simulador 80/20</a>
-                <a href="#pagos-datos" class="hover:text-emerald-400 transition">Pagos</a>
+                <a href="#afiliados" class="hover:text-emerald-400 transition text-emerald-400 font-semibold">Crear Link Afiliado (35%)</a>
+                <a href="#vender" class="hover:text-emerald-400 transition">Vender Gratis</a>
+                <a href="#calculadora" class="hover:text-emerald-400 transition">Simulador Admin</a>
             </nav>
 
             <div class="flex items-center space-x-3">
-                <button onclick="openPortalModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-500/30 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
+                <!-- Botón de Carrito Flotante -->
+                <button onclick="openCartModal()" class="relative px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-500/30 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
+                    <i data-lucide="shopping-cart" class="w-4 h-4"></i> Carrito
+                    <span id="cartCountBadge" class="absolute -top-1.5 -right-1.5 bg-emerald-500 text-slate-950 text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-extrabold hidden">0</span>
+                </button>
+                <button onclick="openPortalModal()" class="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
                     <i data-lucide="lock" class="w-3.5 h-3.5"></i> Acceso Clientes
                 </button>
             </div>
@@ -69,22 +74,19 @@
                 Plataforma de Afiliación & Bienes Informacionales de los <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200">Infoproductos Universitarios</span>
             </h1>
             <p class="mt-6 text-lg text-slate-400 max-w-2xl mx-auto">
-                Adquiere sistemas listos para implementar o monetiza promoviendo nuestros activos verificados ganando hasta un 25% de comisión directa por cada venta cerrada.
+                Adquiere sistemas listos para implementar o monetiza promoviendo nuestros activos verificados ganando un **35% de comisión** por cada venta cerrada.
             </p>
             <div class="mt-8 flex flex-wrap justify-center gap-4">
                 <a href="#catalogo" class="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl transition shadow-lg shadow-emerald-500/20 flex items-center gap-2">
                     <i data-lucide="shopping-bag" class="w-5 h-5"></i> Explorar Activos
                 </a>
                 <a href="#afiliados" class="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl border border-slate-700 transition flex items-center gap-2">
-                    <i data-lucide="share-2" class="w-5 h-5"></i> Crear Mi Link de Afiliado
+                    <i data-lucide="share-2" class="w-5 h-5"></i> Crear Mi Link de Afiliado (35%)
                 </a>
-                <button onclick="openPortalModal()" class="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold rounded-xl border border-emerald-500/40 transition flex items-center gap-2">
-                    <i data-lucide="key" class="w-5 h-5"></i> Ya Compré (Entrar al Contenido)
-                </button>
             </div>
         </section>
 
-        <!-- 1. Catálogo Ampliado (6 Infoproductos Completos) -->
+        <!-- 1. Catálogo con Carrito de Compras -->
         <section id="catalogo" class="space-y-6">
             <div class="border-b border-slate-800 pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
@@ -92,11 +94,11 @@
                         <i data-lucide="store" class="text-emerald-400"></i>
                         Catálogo Oficial de Bienes Informacionales
                     </h2>
-                    <p class="text-slate-400 text-sm">Todos los activos son auditados para garantizar calidad técnica y ejecución inmediata.</p>
+                    <p class="text-slate-400 text-sm">Selecciona los infoproductos que desees y agrégalos al carrito para abonar de forma unificada.</p>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="productsGrid">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Producto 1 -->
                 <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between hover:border-emerald-500/40 transition shadow-lg">
                     <div>
@@ -114,10 +116,10 @@
                     <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
                         <div>
                             <span class="text-2xl font-bold text-white">$35 USD</span>
-                            <span class="block text-[10px] text-emerald-400">Comisión Afiliado: $7 USD (20%)</span>
+                            <span class="block text-[10px] text-emerald-400">Comisión Afiliado: $12.25 (35%)</span>
                         </div>
-                        <button onclick="selectProductForPayment('Pack Integración Tiendanube & API Stock', 35)" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
-                            <i data-lucide="credit-card" class="w-4 h-4"></i> Adquirir
+                        <button onclick="addToCart('Pack Integración Tiendanube & API Stock', 35)" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
+                            <i data-lucide="plus" class="w-4 h-4"></i> Agregar al Carrito
                         </button>
                     </div>
                 </div>
@@ -139,10 +141,10 @@
                     <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
                         <div>
                             <span class="text-2xl font-bold text-white">$20 USD</span>
-                            <span class="block text-[10px] text-emerald-400">Comisión Afiliado: $4 USD (20%)</span>
+                            <span class="block text-[10px] text-emerald-400">Comisión Afiliado: $7.00 (35%)</span>
                         </div>
-                        <button onclick="selectProductForPayment('Guía Escalabilidad Meta Ads en ARS', 20)" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
-                            <i data-lucide="credit-card" class="w-4 h-4"></i> Adquirir
+                        <button onclick="addToCart('Guía Escalabilidad Meta Ads en ARS', 20)" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
+                            <i data-lucide="plus" class="w-4 h-4"></i> Agregar al Carrito
                         </button>
                     </div>
                 </div>
@@ -164,15 +166,15 @@
                     <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
                         <div>
                             <span class="text-2xl font-bold text-white">$45 USD</span>
-                            <span class="block text-[10px] text-emerald-400">Comisión Afiliado: $9 USD (20%)</span>
+                            <span class="block text-[10px] text-emerald-400">Comisión Afiliado: $15.75 (35%)</span>
                         </div>
-                        <button onclick="selectProductForPayment('Template Single-File PWA Monetizable', 45)" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
-                            <i data-lucide="credit-card" class="w-4 h-4"></i> Adquirir
+                        <button onclick="addToCart('Template Single-File PWA Monetizable', 45)" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
+                            <i data-lucide="plus" class="w-4 h-4"></i> Agregar al Carrito
                         </button>
                     </div>
                 </div>
 
-                <!-- Producto 4 (Nuevo) -->
+                <!-- Producto 4 -->
                 <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between hover:border-emerald-500/40 transition shadow-lg">
                     <div>
                         <div class="flex justify-between items-start mb-3">
@@ -189,15 +191,15 @@
                     <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
                         <div>
                             <span class="text-2xl font-bold text-white">$25 USD</span>
-                            <span class="block text-[10px] text-emerald-400">Comisión Afiliado: $5 USD (20%)</span>
+                            <span class="block text-[10px] text-emerald-400">Comisión Afiliado: $8.75 (35%)</span>
                         </div>
-                        <button onclick="selectProductForPayment('Sistema ERP & Control de Márgenes', 25)" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
-                            <i data-lucide="credit-card" class="w-4 h-4"></i> Adquirir
+                        <button onclick="addToCart('Sistema ERP & Control de Márgenes', 25)" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
+                            <i data-lucide="plus" class="w-4 h-4"></i> Agregar al Carrito
                         </button>
                     </div>
                 </div>
 
-                <!-- Producto 5 (Nuevo) -->
+                <!-- Producto 5 -->
                 <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between hover:border-emerald-500/40 transition shadow-lg">
                     <div>
                         <div class="flex justify-between items-start mb-3">
@@ -214,15 +216,15 @@
                     <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
                         <div>
                             <span class="text-2xl font-bold text-white">$15 USD</span>
-                            <span class="block text-[10px] text-emerald-400">Comisión Afiliado: $3 USD (20%)</span>
+                            <span class="block text-[10px] text-emerald-400">Comisión Afiliado: $5.25 (35%)</span>
                         </div>
-                        <button onclick="selectProductForPayment('Ingeniería de Prompts Avanzada', 15)" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
-                            <i data-lucide="credit-card" class="w-4 h-4"></i> Adquirir
+                        <button onclick="addToCart('Ingeniería de Prompts Avanzada', 15)" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
+                            <i data-lucide="plus" class="w-4 h-4"></i> Agregar al Carrito
                         </button>
                     </div>
                 </div>
 
-                <!-- Producto 6 (Nuevo) -->
+                <!-- Producto 6 -->
                 <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between hover:border-emerald-500/40 transition shadow-lg">
                     <div>
                         <div class="flex justify-between items-start mb-3">
@@ -239,35 +241,34 @@
                     <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
                         <div>
                             <span class="text-2xl font-bold text-white">$30 USD</span>
-                            <span class="block text-[10px] text-emerald-400">Comisión Afiliado: $6 USD (20%)</span>
+                            <span class="block text-[10px] text-emerald-400">Comisión Afiliado: $10.50 (35%)</span>
                         </div>
-                        <button onclick="selectProductForPayment('Protocolo Logística Sin Stock', 30)" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
-                            <i data-lucide="credit-card" class="w-4 h-4"></i> Adquirir
+                        <button onclick="addToCart('Protocolo Logística Sin Stock', 30)" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
+                            <i data-lucide="plus" class="w-4 h-4"></i> Agregar al Carrito
                         </button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. Generador de Links de Afiliado & Postulación de Activos -->
-        <section id="afiliados" class="bg-gradient-to-br from-slate-900 to-slate-950 p-8 rounded-3xl border border-emerald-500/30 space-y-8">
+        <!-- 2. Generador de Links de Afiliado (35%) -->
+        <section id="afiliados" class="bg-gradient-to-br from-slate-900 to-slate-950 p-8 rounded-3xl border border-emerald-500/30 space-y-6">
             <div class="max-w-3xl mx-auto text-center space-y-3">
-                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold rounded-full inline-block">Sistema de Afiliados (20% - 25% Comisión)</span>
-                <h2 class="text-3xl font-extrabold text-white">Genera tu Link de Afiliado y Gana por Cada Venta</h2>
-                <p class="text-slate-400 text-sm">Comparte tu enlace personalizado en grupos universitarios, redes o contactos. Cuando alguien compre a través de tu link, recibes hasta el 25% de comisión directa.</p>
+                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold rounded-full inline-block">Programa de Afiliados (35% Comisión)</span>
+                <h2 class="text-3xl font-extrabold text-white">Genera tu Link de Afiliado y Gana el 35% por Venta</h2>
+                <p class="text-slate-400 text-sm">Comparte tu enlace personalizado en grupos universitarios o redes. Cada venta cerrada a través de tu link te otorga el 35% de comisión.</p>
             </div>
 
-            <!-- Generador Instantáneo -->
             <div class="max-w-2xl mx-auto bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4">
-                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">Ingresa tu Nombre o Alias de Afiliado (Sin espacios)</label>
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">Ingresa tu Nombre o Alias de Afiliado</label>
                 <div class="flex flex-col sm:flex-row gap-3">
                     <input type="text" id="affCodeInput" placeholder="Ej. camila_ventas" class="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
                     <button onclick="generateAffiliateLink()" class="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition whitespace-nowrap">
-                        Generar Enlace
+                        Generar Enlace (35%)
                     </button>
                 </div>
                 <div id="affResultBox" class="hidden pt-2">
-                    <span class="text-xs text-slate-400 block mb-1">Tu enlace de afiliado rastreable listo para compartir:</span>
+                    <span class="text-xs text-slate-400 block mb-1">Tu enlace de afiliado listo para compartir:</span>
                     <div class="flex items-center gap-2 bg-slate-900 p-3 rounded-xl border border-emerald-500/30">
                         <input type="text" id="affGeneratedUrl" readonly class="w-full bg-transparent text-xs font-mono text-emerald-400 focus:outline-none">
                         <button onclick="copyAffLink()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-semibold flex items-center gap-1">
@@ -276,83 +277,68 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Formulario para Proponer Nuevo Infoproducto (Sujeto a Verificación) -->
-            <div class="max-w-2xl mx-auto pt-4 border-t border-slate-800">
-                <h3 class="text-lg font-bold text-white text-center mb-2">¿Tienes material legítimo para sumar al catálogo?</h3>
-                <p class="text-xs text-slate-400 text-center mb-6">Envía tu propuesta para auditoría de calidad. La plataforma retiene el 80% por infraestructura, pasarela y distribución, liquidando el 20% por cada venta generada.</p>
-                
-                <form action="https://formspree.io/f/diazluishy@gmail.com" method="POST" class="space-y-4">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <input type="text" name="creador_nombre" required placeholder="Tu Nombre y Universidad" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        <input type="text" name="creador_contacto" required placeholder="Tu WhatsApp o Alias MP" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                    </div>
-                    <input type="url" name="material_auditoria" required placeholder="Link de Drive/Notion del material para verificación de legitimidad" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                    <div class="text-center">
-                        <button type="submit" class="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-500/30 font-bold rounded-xl text-xs transition">
-                            Enviar Material a Verificación del Administrador
-                        </button>
-                    </div>
-                </form>
-            </div>
         </section>
 
-        <!-- 3. Pasarela Local & Confirmación de Pago -->
-        <section id="pagos-datos" class="bg-slate-900/90 p-8 rounded-3xl border border-slate-800 space-y-6">
-            <div class="border-b border-slate-800 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <!-- 3. Formulario para Vender Gratis (Con datos de ejemplo y auditoría de 72 hrs) -->
+        <section id="vender" class="bg-slate-900/90 p-8 rounded-3xl border border-slate-800 space-y-6">
+            <div class="max-w-3xl mx-auto text-center space-y-3">
+                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold rounded-full inline-block">Programa de Creadores & Verificación</span>
+                <h2 class="text-3xl font-extrabold text-white">Vende tus infoproductos aquí 100% Gratis</h2>
+                <p class="text-slate-400 text-sm">Publicar tu conocimiento no tiene costo. Envía tu material para auditoría y verificación de legitimidad (proceso estimado en 72 horas). Una vez aprobado, se integra al catálogo con opción de afiliación del 35%.</p>
+            </div>
+
+            <form action="https://formspree.io/f/diazluishy@gmail.com" method="POST" class="max-w-2xl mx-auto space-y-4 pt-2">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-slate-300 font-medium mb-1">Nombre Completo</label>
+                        <input type="text" name="nombre" required value="Juan Pérez" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-300 font-medium mb-1">WhatsApp / Contacto</label>
+                        <input type="text" name="contacto" required value="+54 9 11 2345-6789" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-slate-300 font-medium mb-1">Categoría del Infoproducto</label>
+                        <select name="tipo_bi" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                            <option value="BI1">$BI_1 - Script / Software / Automatización</option>
+                            <option value="BI2">$BI_2 - E-book / Guía / Reporte Analítico</option>
+                            <option value="BI3" selected>$BI_3 - Pack / Consultoría / Servicio</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-300 font-medium mb-1">Precio de Venta Sugerido (USD / ARS)</label>
+                        <input type="number" name="precio" required value="30" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+
                 <div>
-                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                        <i data-lucide="wallet" class="text-emerald-400"></i>
-                        Pasarela Oficial de Pago (Mercado Pago ARS)
-                    </h2>
-                    <p class="text-slate-400 text-sm">Transfiere el valor del infoproducto y obtén tu usuario y contraseña de acceso inmediato.</p>
+                    <label class="block text-xs text-slate-300 font-medium mb-1">Enlace de tu Producto o Material</label>
+                    <input type="url" name="enlace_producto" required value="https://drive.google.com/ejemplo-material-auditoria" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
                 </div>
-                <div id="selectedProductBadge" class="hidden px-3 py-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-bold rounded-lg">
-                    Seleccionado: <span id="selectedProductName"></span>
-                </div>
-            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800">
-                    <span class="text-xs text-slate-400 block mb-1">Alias Oficial Mercado Pago:</span>
-                    <span class="text-2xl font-mono font-bold text-emerald-400 block tracking-wider">luisantoniodiaz</span>
-                    <button onclick="navigator.clipboard.writeText('luisantoniodiaz')" class="mt-3 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1">
-                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Alias
+                <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs text-slate-400">
+                    ℹ️ <em>Nota de auditoría:</em> El material será revisado por el administrador. Si cumple con los estándares de calidad y legitimidad, será publicado en un lapso de <strong>72 horas</strong> con activación de links de afiliados.
+                </div>
+
+                <div class="text-center pt-2">
+                    <button type="submit" class="w-full sm:w-auto px-8 py-3 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl transition shadow-lg shadow-emerald-500/20">
+                        Enviar a Auditoría y Publicar Gratis
                     </button>
                 </div>
-
-                <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800">
-                    <span class="text-xs text-slate-400 block mb-1">CVU Oficial (Mercado Pago):</span>
-                    <span class="text-xl font-mono font-bold text-white block tracking-wider select-all">0000003100075708519499</span>
-                    <button onclick="navigator.clipboard.writeText('0000003100075708519499')" class="mt-3 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1">
-                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar CVU
-                    </button>
-                </div>
-            </div>
-
-            <!-- Reporte de Pago Rápido (Incluye el código de afiliado automáticamente) -->
-            <form action="https://formspree.io/f/diazluishy@gmail.com" method="POST" class="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4">
-                <h3 class="text-sm font-bold text-white">Paso 2: Notificar Transferencia para Recibir Credenciales de Acceso</h3>
-                <input type="hidden" name="afiliado_referido" id="formRefInput" value="Venta Directa (100% Plataforma)">
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <input type="text" name="comprador_email" required placeholder="Tu Email (para enviarte clave)" class="bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                    <input type="text" name="producto_comprado" id="formProductInput" required placeholder="Nombre del Infoproducto" class="bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                    <input type="text" name="comprobante_nro" required placeholder="N° Operación / Comprobante MP" class="bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
-                </div>
-                <button type="submit" class="w-full sm:w-auto px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition">
-                    Confirmar Pago y Solicitar Acceso
-                </button>
             </form>
         </section>
 
-        <!-- 4. Calculadora de Distribución (80% Plataforma / 20%-25% Afiliado) -->
+        <!-- 4. Simulador Admin (Ocultando la ganancia neta del creador en la vista pública general) -->
         <section id="calculadora" class="bg-slate-900/80 p-8 rounded-3xl border border-slate-800 space-y-6">
             <div class="border-b border-slate-800 pb-4">
                 <h2 class="text-2xl font-bold text-white flex items-center gap-2">
                     <i data-lucide="calculator" class="text-emerald-400"></i>
-                    Simulador de Distribución (Retención 80% Plataforma / Hasta 25% Afiliado)
+                    Simulador Interno de Ingresos (Administrador)
                 </h2>
-                <p class="text-slate-400 text-sm">Si vendes directamente retienes el 100%. Si un afiliado cierra la venta, él gana entre 20% y 25%.</p>
+                <p class="text-slate-400 text-sm">Control financiero privado de distribución de márgenes (Plataforma 65% / Afiliado 35%).</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -361,129 +347,135 @@
                     <input type="number" id="inputPrice" value="35" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Ventas Generadas por Afiliados</label>
-                    <input type="number" id="inputSales" value="20" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500">
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Ventas Mensuales Estimadas</label>
+                    <input type="number" id="inputSales" value="25" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Comisión Afiliado (Máx 25%)</label>
-                    <input type="number" id="inputAffPercent" value="20" max="25" min="0" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500">
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Comisión Afiliado (%)</label>
+                    <input type="number" id="inputAffPercent" value="35" readonly class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-emerald-400 font-bold focus:outline-none">
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-800 text-center">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-800 text-center">
                 <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
                     <span class="text-xs text-slate-400 block">Facturación Total Bruta</span>
-                    <span id="resGross" class="text-2xl font-bold text-white">$700 USD</span>
+                    <span id="resGross" class="text-2xl font-bold text-white">$875 USD</span>
                 </div>
                 <div class="bg-slate-950 p-4 rounded-xl border border-emerald-500/30">
-                    <span class="text-xs text-slate-400 block">Ganancia Plataforma (Luis Díaz)</span>
-                    <span id="resOwner" class="text-2xl font-bold text-emerald-400">$560 USD (80%)</span>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <span class="text-xs text-slate-400 block">Liquidación a Afiliados</span>
-                    <span id="resAff" class="text-2xl font-bold text-teal-300">$140 USD (20%)</span>
+                    <span class="text-xs text-slate-400 block">Ganancia Neta Plataforma (Admin 65%)</span>
+                    <span id="resOwner" class="text-2xl font-bold text-emerald-400">$568.75 USD</span>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- MODAL: ÁREA PRIVADA DE CLIENTES (Login + Contenido Completo Estilo Discord/LMS) -->
+    <!-- MODAL DE CARRITO DE COMPRAS Y PAGO UNIFICADO -->
+    <div id="cartModal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative shadow-2xl">
+            <button onclick="closeCartModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="space-y-6">
+                <div>
+                    <span class="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-bold rounded-md">CHECKOUT UNIFICADO</span>
+                    <h3 class="text-2xl font-bold text-white mt-2">Tu Carrito de Infoproductos</h3>
+                    <p class="text-xs text-slate-400">Revisa los activos seleccionados y procede al pago mediante billetera virtual.</p>
+                </div>
+
+                <!-- Lista de items en el carrito -->
+                <div id="cartItemsContainer" class="bg-slate-950 rounded-2xl border border-slate-800 p-4 max-h-60 overflow-y-auto space-y-3">
+                    <p class="text-xs text-slate-500 text-center py-4">Tu carrito está vacío.</p>
+                </div>
+
+                <!-- Resumen de Totales -->
+                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex justify-between items-center">
+                    <span class="text-sm font-semibold text-slate-300">Total a Pagar:</span>
+                    <span id="cartTotalPrice" class="text-2xl font-bold text-emerald-400">$0 USD</span>
+                </div>
+
+                <!-- Botón para ver Opciones de Pago y Billetera Virtual -->
+                <div id="checkoutActionBox" class="space-y-4">
+                    <button onclick="proceedToPaymentOptions()" class="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-sm transition shadow-lg shadow-emerald-500/20">
+                        Seleccionar Billetera Virtual & Pagar
+                    </button>
+                </div>
+
+                <!-- Sección de Opciones de Pago (Oculta hasta hacer clic en proceder) -->
+                <div id="paymentGatewaySection" class="hidden space-y-4 pt-4 border-t border-slate-800 animate-fadeIn">
+                    <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                        <i data-lucide="wallet" class="text-emerald-400"></i> Datos de Pago Oficiales (Mercado Pago / Billetera ARS)
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <span class="text-[10px] text-slate-400 block mb-1">Alias Oficial:</span>
+                            <span class="text-sm font-mono font-bold text-emerald-400">luisantoniodiaz</span>
+                            <button onclick="navigator.clipboard.writeText('luisantoniodiaz'); alert('Alias copiado');" class="mt-2 text-[10px] bg-slate-900 hover:bg-slate-800 text-slate-300 px-2.5 py-1 rounded border border-slate-700 block">Copiar Alias</button>
+                        </div>
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <span class="text-[10px] text-slate-400 block mb-1">CVU Oficial:</span>
+                            <span class="text-xs font-mono font-bold text-white select-all">0000003100075708519499</span>
+                            <button onclick="navigator.clipboard.writeText('0000003100075708519499'); alert('CVU copiado');" class="mt-2 text-[10px] bg-slate-900 hover:bg-slate-800 text-slate-300 px-2.5 py-1 rounded border border-slate-700 block">Copiar CVU</button>
+                        </div>
+                    </div>
+
+                    <!-- Formulario Final de Notificación -->
+                    <form action="https://formspree.io/f/diazluishy@gmail.com" method="POST" class="space-y-3 pt-2">
+                        <input type="hidden" name="carrito_productos" id="formCartProducts" value="">
+                        <input type="hidden" name="afiliado_referido" id="formCartRef" value="Venta Directa">
+                        <input type="text" name="comprador_email" required placeholder="Tu Email para recibir credenciales de acceso" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500">
+                        <input type="text" name="comprobante_operacion" required placeholder="N° de Comprobante / Operación de Mercado Pago" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500">
+                        <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-slate-950 font-bold rounded-xl text-xs transition">
+                            Notificar Pago y Recibir Credenciales de Acceso
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: ÁREA PRIVADA DE CLIENTES (Login + Canales) -->
     <div id="clientPortalModal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-4xl w-full p-6 sm:p-8 relative shadow-2xl my-8">
             <button onclick="closePortalModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
 
-            <!-- Vista 1: Formulario de Login -->
+            <!-- Vista Login -->
             <div id="loginView" class="max-w-md mx-auto py-8 space-y-6">
                 <div class="text-center space-y-2">
                     <div class="w-12 h-12 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl flex items-center justify-center text-emerald-400 mx-auto">
                         <i data-lucide="lock" class="w-6 h-6"></i>
                     </div>
                     <h3 class="text-2xl font-bold text-white">Bóveda Privada de Clientes</h3>
-                    <p class="text-xs text-slate-400">Ingresa las credenciales entregadas tras tu compra para visualizar el documento completo o descargar los archivos.</p>
+                    <p class="text-xs text-slate-400">Ingresa las credenciales enviadas a tu correo tras verificar tu pago.</p>
                 </div>
 
                 <div class="space-y-4">
-                    <div>
-                        <label class="block text-xs text-slate-300 mb-1">Usuario / Licencia</label>
-                        <input type="text" id="loginUser" placeholder="Ej. alumno2026" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-300 mb-1">Contraseña de Acceso</label>
-                        <input type="password" id="loginPass" placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                    </div>
-                    <p id="loginError" class="hidden text-xs text-rose-400 text-center">Credenciales incorrectas. Verifica tu correo de confirmación.</p>
+                    <input type="text" id="loginUser" placeholder="Usuario / Licencia" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    <input type="password" id="loginPass" placeholder="Contraseña" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    <p id="loginError" class="hidden text-xs text-rose-400 text-center">Credenciales incorrectas.</p>
                     <button onclick="attemptLogin()" class="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-sm transition">
-                        Desbloquear Contenido Ahora
+                        Desbloquear Contenido
                     </button>
                 </div>
-
-                <!-- Credenciales Demo para que puedas probarlo tú mismo -->
                 <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] text-slate-400 text-center">
-                    <span class="text-emerald-400 font-semibold">Acceso Demo Admin/Prueba:</span> Usuario: <code class="text-white">admin</code> | Clave: <code class="text-white">hub2026</code>
+                    Demo: Usuario <code class="text-white">admin</code> | Clave <code class="text-white">hub2026</code>
                 </div>
             </div>
 
-            <!-- Vista 2: Contenido Desplegado (Estilo Discord / Canal Privado + Descarga) -->
+            <!-- Vista Contenido Desbloqueado -->
             <div id="unlockedContentView" class="hidden space-y-6">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
-                    <div>
-                        <span class="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-bold rounded-md">LICENCIA ACTIVA VERIFICADA</span>
-                        <h3 class="text-xl font-bold text-white mt-2">Repositorio Privado de Bienes Informacionales</h3>
-                    </div>
-                    <button onclick="logoutPortal()" class="text-xs text-slate-400 hover:text-rose-400 flex items-center gap-1">
-                        <i data-lucide="log-out" class="w-4 h-4"></i> Cerrar Sesión
-                    </button>
+                <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                    <span class="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-bold rounded-md">ACCESO VERIFICADO</span>
+                    <button onclick="logoutPortal()" class="text-xs text-slate-400 hover:text-rose-400">Cerrar Sesión</button>
                 </div>
-
-                <!-- Layout Estilo Discord (Canales a la izquierda, Contenido completo a la derecha) -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden min-h-[420px]">
-                    <!-- Sidebar Canales -->
-                    <div class="bg-slate-900/60 p-4 border-r border-slate-800 space-y-2">
-                        <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-2">Módulos Desbloqueados</span>
-                        <button onclick="switchChannel('mod1')" class="w-full text-left px-3 py-2 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs font-semibold flex items-center gap-2">
-                            <span>#</span> 01-api-tiendanube
-                        </button>
-                        <button onclick="switchChannel('mod2')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-300 text-xs flex items-center gap-2">
-                            <span>#</span> 02-meta-ads-ars
-                        </button>
-                        <button onclick="switchChannel('mod3')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-300 text-xs flex items-center gap-2">
-                            <span>#</span> 03-erp-finanzas
-                        </button>
-                        <button onclick="switchChannel('mod4')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-300 text-xs flex items-center gap-2">
-                            <span>#</span> 04-prompts-ia
-                        </button>
-                    </div>
-
-                    <!-- Área de Lectura y Descarga Inmediata -->
-                    <div class="md:col-span-3 p-6 flex flex-col justify-between space-y-6">
-                        <div id="channelContentArea" class="space-y-4">
-                            <h4 class="text-lg font-bold text-white"># 01-api-tiendanube — Documentación Técnica Completa</h4>
-                            <p class="text-xs text-slate-300 leading-relaxed">
-                                Bienvenido al módulo completo de automatización de inventario. A continuación tienes el código fuente estructurado para conectar el catálogo mayorista con tu tienda online mediante webhooks:
-                            </p>
-                            <pre class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-[11px] font-mono text-emerald-400 overflow-x-auto">
-import requests
-
-def sync_inventory(store_id, token, supplier_stock):
-    headers = {"Authentication": f"bearer {token}", "User-Agent": "HubSync/1.0"}
-    for sku, qty in supplier_stock.items():
-        payload = {"stock": qty, "published": qty > 0}
-        requests.put(f"https://api.tiendanube.com/v1/{store_id}/products/{sku}", json=payload, headers=headers)
-    return "Sincronización completada con éxito."</pre>
-                            <p class="text-xs text-slate-400">
-                                <strong>Instrucción de despliegue:</strong> Sube este script a un entorno serverless o cron-job cada 30 minutos para evitar ventas sin stock físico.
-                            </p>
-                        </div>
-
-                        <div class="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
-                            <span class="text-[11px] text-slate-400">Archivo verificable libre de DRM • Uso autorizado</span>
-                            <button onclick="downloadActiveDocument()" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
-                                <i data-lucide="download" class="w-4 h-4"></i> Descargar Paquete (.TXT / Guía)
-                            </button>
-                        </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 bg-slate-950 rounded-2xl border border-slate-800 p-6">
+                    <div class="md:col-span-3 space-y-4">
+                        <h4 class="text-lg font-bold text-white"># Módulo Activo — Documentación Técnica</h4>
+                        <p class="text-xs text-slate-300">Tienes acceso completo a los scripts y manuales de sincronización comprados.</p>
+                        <pre class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-[11px] font-mono text-emerald-400"># Sistema sincronizado y activo con pasarela local.</pre>
                     </div>
                 </div>
             </div>
@@ -493,172 +485,135 @@ def sync_inventory(store_id, token, supplier_stock):
     <!-- Footer -->
     <footer class="bg-slate-900 border-t border-slate-800 py-8 text-center text-slate-500 text-xs">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div>
-                <p>© 2026 Hub Global de Monetización Cognitiva & E-Commerce. Todos los derechos reservados.</p>
-                <p class="text-[10px] text-slate-600 mt-1">Plataforma de Afiliación & Bienes Informacionales.</p>
-            </div>
-            <div class="flex space-x-4">
-                <a href="https://github.com/cybervortexcont/hub-monetizacion-cognitiva" target="_blank" class="hover:text-emerald-400 transition">GitHub Repo</a>
-                <a href="https://hub-monetizacion-cognitiva.vercel.app" target="_blank" class="hover:text-emerald-400 transition">Vercel Live</a>
-            </div>
+            <p>© 2026 Hub Global de Monetización Cognitiva. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <!-- Lógica Completa: Afiliados, Calculadora 80/20 y Bóveda de Clientes -->
+    <!-- Lógica de Carrito, Afiliados y Calculadora -->
     <script>
         lucide.createIcons();
 
-        // 1. Detección automática de parámetro de afiliado (?ref=codigo)
+        // 1. Manejo de Afiliados (35%)
         const urlParams = new URLSearchParams(window.location.search);
         const refParam = urlParams.get('ref');
-        if (refParam) {
-            localStorage.setItem('hub_affiliate_ref', refParam);
-        }
+        if (refParam) localStorage.setItem('hub_affiliate_ref', refParam);
         const activeRef = localStorage.getItem('hub_affiliate_ref');
         if (activeRef) {
             document.getElementById('affiliateBanner').classList.remove('hidden');
             document.getElementById('refNameDisplay').innerText = activeRef;
-            document.getElementById('formRefInput').value = "Afiliado: " + activeRef;
+            document.getElementById('formCartRef').value = "Afiliado: " + activeRef;
         }
 
-        // 2. Generador de Links de Afiliado
         function generateAffiliateLink() {
             const code = document.getElementById('affCodeInput').value.trim().replace(/\s+/g, '_').toLowerCase();
-            if (!code) return alert('Por favor, escribe tu alias o nombre de afiliado.');
-            const baseUrl = window.location.origin + window.location.pathname;
-            const fullUrl = `${baseUrl}?ref=${code}`;
+            if (!code) return alert('Escribe tu alias de afiliado.');
+            const fullUrl = `${window.location.origin}${window.location.pathname}?ref=${code}`;
             document.getElementById('affGeneratedUrl').value = fullUrl;
             document.getElementById('affResultBox').classList.remove('hidden');
         }
 
         function copyAffLink() {
-            const urlInput = document.getElementById('affGeneratedUrl');
-            urlInput.select();
-            navigator.clipboard.writeText(urlInput.value);
-            alert('¡Link de afiliado copiado! Compártelo para ganar hasta el 25% por venta.');
+            navigator.clipboard.writeText(document.getElementById('affGeneratedUrl').value);
+            alert('¡Link copiado con 35% de comisión para afiliados!');
         }
 
-        // 3. Selección de Producto hacia Pasarela de Pago
-        function selectProductForPayment(productName, priceUsd) {
-            document.getElementById('selectedProductBadge').classList.remove('hidden');
-            document.getElementById('selectedProductName').innerText = `${productName} ($${priceUsd} USD)`;
-            document.getElementById('formProductInput').value = `${productName} ($${priceUsd} USD)`;
-            document.getElementById('pagos-datos').scrollIntoView({ behavior: 'smooth' });
+        // 2. Carrito de Compras
+        let cart = [];
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartUI();
+            alert(`¡"${name}" agregado al carrito!`);
         }
 
-        // 4. Calculadora 80% Plataforma / Hasta 25% Afiliado
+        function updateCartUI() {
+            const badge = document.getElementById('cartCountBadge');
+            const container = document.getElementById('cartItemsContainer');
+            const totalElement = document.getElementById('cartTotalPrice');
+
+            if (cart.length > 0) {
+                badge.innerText = cart.length;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+
+            if (cart.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-500 text-center py-4">Tu carrito está vacío.</p>`;
+                totalElement.innerText = '$0 USD';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                html += `
+                    <div class="flex justify-between items-center text-xs bg-slate-900 p-2.5 rounded-xl border border-slate-800">
+                        <div>
+                            <span class="text-white font-semibold block">${item.name}</span>
+                            <span class="text-emerald-400">$${item.price} USD</span>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="text-slate-400 hover:text-rose-400">Eliminar</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            totalElement.innerText = `$${total} USD`;
+            document.getElementById('formCartProducts').value = cart.map(i => `${i.name} ($${i.price})`).join(' | ');
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function openCartModal() {
+            document.getElementById('cartModal').classList.remove('hidden');
+        }
+
+        function closeCartModal() {
+            document.getElementById('cartModal').classList.add('hidden');
+        }
+
+        function proceedToPaymentOptions() {
+            if (cart.length === 0) return alert('Agrega al menos un producto al carrito para proceder.');
+            document.getElementById('paymentGatewaySection').classList.remove('hidden');
+        }
+
+        // 3. Simulador Admin
         const priceInput = document.getElementById('inputPrice');
         const salesInput = document.getElementById('inputSales');
-        const affPercentInput = document.getElementById('inputAffPercent');
 
         function calculate() {
             const price = parseFloat(priceInput.value) || 0;
             const sales = parseFloat(salesInput.value) || 0;
-            let affPercent = parseFloat(affPercentInput.value) || 0;
-            if (affPercent > 25) { affPercent = 25; affPercentInput.value = 25; }
-            if (affPercent < 0) { affPercent = 0; affPercentInput.value = 0; }
-
-            const ownerPercent = 100 - affPercent;
             const gross = price * sales;
-            const affAmount = gross * (affPercent / 100);
-            const ownerAmount = gross - affAmount;
+            const ownerAmount = gross * 0.65; // 65% para la plataforma
 
             document.getElementById('resGross').innerText = '$' + gross.toLocaleString('en-US') + ' USD';
-            document.getElementById('resOwner').innerText = `$${ownerAmount.toLocaleString('en-US')} USD (${ownerPercent}%)`;
-            document.getElementById('resAff').innerText = `$${affAmount.toLocaleString('en-US')} USD (${affPercent}%)`;
+            document.getElementById('resOwner').innerText = '$' + ownerAmount.toLocaleString('en-US', {minimumFractionDigits: 2}) + ' USD';
         }
 
         priceInput.addEventListener('input', calculate);
         salesInput.addEventListener('input', calculate);
-        affPercentInput.addEventListener('input', calculate);
 
-        // 5. Lógica del Portal de Clientes (Login + Canales estilo Discord + Descarga)
-        const channelData = {
-            mod1: {
-                title: "# 01-api-tiendanube — Documentación Técnica Completa",
-                body: `<p class="text-xs text-slate-300 leading-relaxed">Código fuente en Python para sincronización automática de stock con proveedores mayoristas:</p>
-                       <pre class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-[11px] font-mono text-emerald-400 overflow-x-auto">import requests\ndef sync_inventory(store_id, token, supplier_stock):\n    headers = {"Authentication": f"bearer {token}"}\n    for sku, qty in supplier_stock.items():\n        requests.put(f"https://api.tiendanube.com/v1/{store_id}/products/{sku}", json={"stock": qty}, headers=headers)</pre>`,
-                rawText: "MANUAL COMPLETO: API TIENDANUBE & STOCK\n\nPaso 1: Obtener Access Token en el panel de socios.\nPaso 2: Ejecutar script sync_inventory() mediante cron cada 30 min."
-            },
-            mod2: {
-                title: "# 02-meta-ads-ars — Arquitectura de Campañas & Embudo WhatsApp",
-                body: `<p class="text-xs text-slate-300 leading-relaxed">Estructura de pauta optimizada para conversión directa en pesos argentinos:</p>
-                       <ul class="text-xs text-slate-300 list-disc pl-5 space-y-1">
-                           <li><strong>Fase 1 (Testeo):</strong> Campaña ABO con 3 conjuntos de anuncios abiertos + 2 creativos dinámicos por conjunto.</li>
-                           <li><strong>Fase 2 (Escalado):</strong> Duplicar conjuntos ganadores en CBO aumentando presupuesto 20% cada 48 horas.</li>
-                           <li><strong>Cierre:</strong> Redirección directa a WhatsApp con mensaje pre-cargado de intención de compra.</li>
-                       </ul>`,
-                rawText: "GUIA META ADS ARS\n\nFase 1: ABO Testeo de creativos.\nFase 2: CBO Escalado vertical y horizontal.\nFase 3: Cierre por WhatsApp Business."
-            },
-            mod3: {
-                title: "# 03-erp-finanzas — Fórmulas de Márgenes y Punto de Equilibrio",
-                body: `<p class="text-xs text-slate-300 leading-relaxed">Ecuación fundamental para fijación de precios minoristas cubriendo comisiones y reposición:</p>
-                       <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-xs font-mono text-emerald-400">
-                           Precio_Venta = Costo_Reposicion / (1 - (%Margen_Deseado + %Comision_Pasarela + %Impuestos))
-                       </div>`,
-                rawText: "SISTEMA ERP Y FINANZAS\n\nFormula de Markup Real: Costo / (1 - Deducciones Totales)."
-            },
-            mod4: {
-                title: "# 04-prompts-ia — Prompts Maestros de Investigación y Ventas",
-                body: `<p class="text-xs text-slate-300 leading-relaxed">Prompt estructurado para generación de páginas de venta de alta conversión:</p>
-                       <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-xs font-mono text-slate-300">
-                           "Actúa como un especialista en comercio electrónico y copywriting directo. Redacta una oferta irresistible para [PRODUCTO] dirigida a [AUDIENCIA], estructurando: 1) Gancho de dolor, 2) Mecanismo único, 3) Prueba lógica y 4) Llamado a la acción."
-                       </div>`,
-                rawText: "INGENIERIA DE PROMPTS\n\nPrompt 1: Copywriting de conversion.\nPrompt 2: Analisis competitivo de mercado."
-            }
-        };
-
-        let currentActiveMod = 'mod1';
-
-        function openPortalModal() {
-            document.getElementById('clientPortalModal').classList.remove('hidden');
-        }
-
-        function closePortalModal() {
-            document.getElementById('clientPortalModal').classList.add('hidden');
-        }
-
+        // 4. Portal Login
+        function openPortalModal() { document.getElementById('clientPortalModal').classList.remove('hidden'); }
+        function closePortalModal() { document.getElementById('clientPortalModal').classList.add('hidden'); }
         function attemptLogin() {
-            const user = document.getElementById('loginUser').value.trim();
-            const pass = document.getElementById('loginPass').value.trim();
-            // Usuarios válidos (puedes agregar más aquí cuando vendas licencias)
-            const validUsers = {
-                'admin': 'hub2026',
-                'cliente1': 'acceso2026',
-                'luis': 'unpaz2026'
-            };
-
-            if (validUsers[user] && validUsers[user] === pass) {
-                document.getElementById('loginError').classList.add('hidden');
+            const u = document.getElementById('loginUser').value;
+            const p = document.getElementById('loginPass').value;
+            if (u === 'admin' && p === 'hub2026') {
                 document.getElementById('loginView').classList.add('hidden');
                 document.getElementById('unlockedContentView').classList.remove('hidden');
             } else {
                 document.getElementById('loginError').classList.remove('hidden');
             }
         }
-
         function logoutPortal() {
             document.getElementById('unlockedContentView').classList.add('hidden');
             document.getElementById('loginView').classList.remove('hidden');
-            document.getElementById('loginPass').value = '';
-        }
-
-        function switchChannel(modKey) {
-            currentActiveMod = modKey;
-            const mod = channelData[modKey];
-            document.getElementById('channelContentArea').innerHTML = `
-                <h4 class="text-lg font-bold text-white">${mod.title}</h4>
-                ${mod.body}
-            `;
-        }
-
-        function downloadActiveDocument() {
-            const mod = channelData[currentActiveMod];
-            const blob = new Blob([mod.rawText], { type: 'text/plain;charset=utf-8' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = `${currentActiveMod}_contenido_verificado.txt`;
-            link.click();
         }
     </script>
 </body>
